@@ -46,6 +46,10 @@ body {
 .fixed-top {
   position: fixed;
   max-width: 900px;
+  background-color: white;
+  top: 0;
+  padding-top: 24px;
+  padding-bottom: 20px;
 }
 
 .login-link {
@@ -101,7 +105,7 @@ body {
 */
 main {
   margin: 5px;
-  padding-top: 140px;
+  padding-top: 150px;
 }
 
 a {
