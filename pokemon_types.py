@@ -162,7 +162,8 @@ def gdisconnect():
 @app.route('/')
 @app.route('/pokemon/')
 def showHome():
-    return render_template('home.html')
+    pokemon_list = session.query(Pokemon).all()
+    return render_template('home.html', pokemon_list = pokemon_list)
 
 
 @app.route('/pokemon/<string:type>')

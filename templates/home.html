@@ -47,18 +47,12 @@
   </sidebar>
 
   <section class="tiles-area">
+    {% for pokemon in pokemon_list %}
     <div class="tile">
-      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" />
-      <h3 class="tile-name">Bulbasaur</h3>
+      <img class="tile-image" src="{{pokemon.image}}" />
+      <h3 class="tile-name">{{pokemon.name}}</h3>
     </div>
-    <div class="tile">
-      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" />
-      <h3 class="tile-name">Charmander</h3>
-    </div>
-    <div class="tile">
-      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png" />
-      <h3 class="tile-name">Squirtle</h3>
-    </div>
+    {% endfor %}
   </section>
 </main>
 {% endblock %}
