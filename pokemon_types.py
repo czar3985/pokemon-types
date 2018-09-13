@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Pokemon, User, Category, Type, Move, engine
 
@@ -162,8 +162,9 @@ def gdisconnect():
 @app.route('/')
 @app.route('/pokemon/')
 def showHome():
-    pokemon_list = session.query(Pokemon).all()
-    return render_template('home.html', pokemon_list = pokemon_list)
+    pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.name))
+    types = session.query(Type).order_by(asc(Type.name))
+    return render_template('home.html', pokemon_list = pokemon_list, types = types)
 
 
 @app.route('/pokemon/<string:type>')
