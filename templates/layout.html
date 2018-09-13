@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon</title>
+
+  <!-- Metas for SEO -->
+  <meta name="description" content="Pokemon directory" />
+  <meta name="keywords" content="pokemon" />
+
+  <!-- Styling for the page -->
+  <link rel=stylesheet type=text/css href="{{url_for('static', filename='styles.css')}}">
+
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body>
+  <!-- Header of the page -->
+  <section class="login-section">
+    <span class="login-options color-theme-2">&#9660;</span>
+    <p class="login-link">Username</p>
+  </section>
+
+  <header class="banner">
+    <img class="banner-image" src="{{url_for('static', filename='banner.jpg')}}" alt="Beach view in Pokemon" />
+    <p class="banner-text color-theme-1">Pokemon Types</p>
+  </header>
+
+  <!-- Main Page content -->
+  <main>
+    {% block body %}
+    {% endblock %}
+  </main>
+</body>
+
+</html>

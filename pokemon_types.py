@@ -164,7 +164,7 @@ def gdisconnect():
 @app.route('/')
 @app.route('/pokemon/')
 def showHome():
-    return "Home page showing all pokemon"
+    return render_template('home.html')
 
 
 @app.route('/pokemon/<string:type>')

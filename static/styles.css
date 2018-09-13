@@ -1,0 +1,117 @@
+/*
+ *
+ * Common
+ *
+ *
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px "Trebuchet MS", Helvetica, sans-serif;
+  width: 100%;
+  margin: 0;
+  padding: 8px;
+}
+
+.base-color {
+  color: #B37D4E; /* FIELD */
+}
+
+.color-theme-1 {
+  color: #286DA8; /* SUMMER SKY */
+}
+
+.color-theme-2 {
+  color: #438496; /* BREEZE */
+}
+
+.accent-color-1 {
+  color: #CD5360; /* WARM PEACH */
+}
+
+.accent-color-2 {
+  color: #007849; /* IRISES */
+}
+
+/*
+ *
+ * Header
+ *
+ *
+*/
+
+.login-link {
+  font-style: italic;
+  float: right;
+  margin-top: auto;
+  margin-right: 5px;
+}
+
+.login-options {
+  float: right;
+}
+
+.banner {
+  clear: both;
+  height: 100px;
+  position: relative;
+}
+
+.banner-image {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+  object-position: bottom;
+}
+
+.banner-text {
+  font-size: 2em;
+  position: absolute;
+  margin-left: 0.25em;
+  top: 10px;
+}
+
+@media screen and (min-width: 500px) {
+  .banner-text {
+    font-size: 2.75em;
+    top: -10px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .banner-text {
+    font-size: 3.25em;
+    top: -20px;
+  }
+}
+
+/*
+ *
+ * Body
+ *
+ *
+*/
+main {
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*
+*
+* Body styling for responsiveness
+*
+*
+*/
+
+@media screen and (min-width: 900px) {
+  body {
+    width: 900px;
+    margin: auto;
+  }
+}
