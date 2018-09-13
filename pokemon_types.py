@@ -36,7 +36,7 @@ def showLogin():
 
 
 def createUser(login_session):
-    newUser = User(name = login_session['username'], email = login_session['email'], picture = login_session['picture'])
+    newUser = User(name = login_session['username'], email = login_session['email'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email = login_session['email']).one()
@@ -126,7 +126,6 @@ def gconnect():
     data = answer.json()
 
     login_session['username'] = data['name']
-    login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
     # See if the user exists in the database or create a new entry
@@ -155,7 +154,6 @@ def gdisconnect():
         del login_session['gplus_id']
         del login_session['username']
         del login_session['email']
-        del login_session['picture']
     response = make_response(redirect(url_for('showHome')))
     response.headers['Content-Type'] = 'text/html'
     return response
