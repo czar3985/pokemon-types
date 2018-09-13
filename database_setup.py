@@ -15,7 +15,6 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
-    picture = Column(String(250))
 
 
 class Category(Base):
@@ -71,11 +70,11 @@ class Pokemon(Base):
     weight = Column(Float, nullable = False)
     is_mythical = Column(Boolean, nullable = False)
     is_legendary = Column(Boolean, nullable = False)
-    evolutionBefore = Column(Integer, nullable = True)
-    evolutionAfterList = Column(PickleType, nullable = True)
-    typeList = Column(PickleType, nullable = False)
-    weaknessList = Column(PickleType, nullable = False)
-    moveList = Column(PickleType, nullable = False)
+    evolution_before = Column(Integer, nullable = True)
+    evolution_after_list = Column(PickleType, nullable = True)
+    type_list = Column(PickleType, nullable = False)
+    weakness_list = Column(PickleType, nullable = False)
+    move_list = Column(PickleType, nullable = False)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
@@ -92,16 +91,8 @@ class Pokemon(Base):
             'weight': self.weight,
             'is_mythical': self.is_mythical,
             'is_legendary': self.is_legendary,
-            'evolutionBefore': self.evolutionBefore,
-            'evolutionsAfter': self.evolutionAfterList,
-            'types': self.typeList,
-            'weaknesses': self.weaknessList,
-            'possible_moves': self.moveList,
             'category': self.category_id
             }
-
-
-
 
 
 engine = create_engine('sqlite:///pokemon.db')
