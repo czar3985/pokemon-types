@@ -170,14 +170,14 @@ def showType(type):
     return "Shows all pokemon of selected type %s" % type
 
 
-@app.route('/pokemon/new')
-def newPokemon():
-    return "New pokemon page"
-
-
 @app.route('/pokemon/<int:id>')
 def showPokemon(id):
     return "Details page for pokemon with id: %s" % id
+
+
+@app.route('/pokemon/new')
+def newPokemon():
+    return "New pokemon page"
 
 
 @app.route('/pokemon/<int:id>/edit')
