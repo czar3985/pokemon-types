@@ -43,6 +43,11 @@ body {
  *
 */
 
+.fixed-top {
+  position: fixed;
+  max-width: 900px;
+}
+
 .login-link {
   font-style: italic;
   float: right;
@@ -96,10 +101,106 @@ body {
 */
 main {
   margin: 5px;
+  padding-top: 140px;
 }
 
 a {
   text-decoration: none;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.types-dropdown {
+  width: 100%;
+  padding: 0.5em;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #B37D4E;
+  border-radius: 4px;
+}
+
+.types-section {
+  display: none;
+  width: 100%;
+}
+
+.tiles-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.tile {
+  width: 100%;
+  border: 1px solid #B37D4E;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 350px) {
+  .tile {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .tile {
+    width: 48%;
+    margin-left: 5px;
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .types-section {
+    display: block;
+    width: 20%;
+  }
+
+  .types-dropdown {
+    display: none;
+  }
+
+  .tiles-area {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .tile {
+    width: 32%;
+  }
+}
+
+.type-link {
+  color: black;
+  padding-left: 5px;
+  font-size: 1.25em;
+}
+
+.type-text:hover {
+  background-color: #eaeaea;
+}
+
+.tile:hover {
+  background-color: #eaeaea;
+  cursor: pointer;
+}
+
+.tile-image {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+.tile-name {
+  text-align: center;
 }
 
 /*

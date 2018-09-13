@@ -1,5 +1,64 @@
 ﻿{% extends "layout.html" %}
 
 {% block body %}
-<p>put pokemon tiles here</p>
+<main class="main-content">
+  <select class="types-dropdown">
+    <option value="all" selected>All</option>
+    <option value="bug">Bug</option>
+    <option value="dark">Dark</option>
+    <option value="dragon">Dragon</option>
+    <option value="electric">Electric</option>
+    <option value="fairy">Fairy</option>
+    <option value="fighting">Fighting</option>
+    <option value="fire">Fire</option>
+    <option value="flying">Flying</option>
+    <option value="ghost">Ghost</option>
+    <option value="grass">Grass</option>
+    <option value="ground">Ground</option>
+    <option value="ice">Ice</option>
+    <option value="normal">Normal</option>
+    <option value="poisom">Poison</option>
+    <option value="psychic">Psychic</option>
+    <option value="rock">Rock</option>
+    <option value="steel">Steel</option>
+    <option value="water">Water</option>
+  </select>
+
+  <sidebar class="types-section">
+    <a class="type-link" href="#"><div class="type-text">All</div></a>
+    <a class="type-link" href="#"><div class="type-text">Bug</div></a>
+    <a class="type-link" href="#"><div class="type-text">Dark</div></a>
+    <a class="type-link" href="#"><div class="type-text">Dragon</div></a>
+    <a class="type-link" href="#"><div class="type-text">Electric</div></a>
+    <a class="type-link" href="#"><div class="type-text">Fairy</div></a>
+    <a class="type-link" href="#"><div class="type-text">Fighting</div></a>
+    <a class="type-link" href="#"><div class="type-text">Fire</div></a>
+    <a class="type-link" href="#"><div class="type-text">Flying</div></a>
+    <a class="type-link" href="#"><div class="type-text">Ghost</div></a>
+    <a class="type-link" href="#"><div class="type-text">Grass</div></a>
+    <a class="type-link" href="#"><div class="type-text">Ground</div></a>
+    <a class="type-link" href="#"><div class="type-text">Ice</div></a>
+    <a class="type-link" href="#"><div class="type-text">Normal</div></a>
+    <a class="type-link" href="#"><div class="type-text">Poison</div></a>
+    <a class="type-link" href="#"><div class="type-text">Psychic</div></a>
+    <a class="type-link" href="#"><div class="type-text">Rock</div></a>
+    <a class="type-link" href="#"><div class="type-text">Steel</div></a>
+    <a class="type-link" href="#"><div class="type-text">Water</div></a>
+  </sidebar>
+
+  <section class="tiles-area">
+    <div class="tile">
+      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" />
+      <h3 class="tile-name">Bulbasaur</h3>
+    </div>
+    <div class="tile">
+      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" />
+      <h3 class="tile-name">Charmander</h3>
+    </div>
+    <div class="tile">
+      <img class="tile-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png" />
+      <h3 class="tile-name">Squirtle</h3>
+    </div>
+  </section>
+</main>
 {% endblock %}

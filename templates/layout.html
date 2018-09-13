@@ -20,21 +20,22 @@
 
 <body>
   <!-- Header of the page -->
-  <section class="login-section">
-    <span class="login-options color-theme-2">&#9660;</span>
-    <p class="login-link">Username</p>
-  </section>
+  <div class="fixed-top">
+    <section class="login-section">
+      <span class="login-options color-theme-2">&#9660;</span>
+      <p class="login-link">Username</p>
+    </section>
 
-  <header class="banner">
-    <img class="banner-image" src="{{url_for('static', filename='banner.jpg')}}" alt="Beach view in Pokemon" />
-    <p class="banner-text color-theme-1">Pokemon Types</p>
-  </header>
+    <header class="banner">
+      <img class="banner-image" src="{{url_for('static', filename='banner.jpg')}}" alt="Beach view in Pokemon" />
+      <h1 class="banner-text color-theme-1">Pokemon Types</h1>
+    </header>
+  </div>
 
   <!-- Main Page content -->
-  <main>
-    {% block body %}
-    {% endblock %}
-  </main>
+  {% block body %}
+  {% endblock %}
+
 </body>
 
 </html>
