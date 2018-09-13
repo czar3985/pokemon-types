@@ -164,12 +164,21 @@ def gdisconnect():
 def showHome():
     pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.name))
     types = session.query(Type).order_by(asc(Type.name))
-    return render_template('home.html', pokemon_list = pokemon_list, types = types)
+    return render_template('home.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
 
 
 @app.route('/pokemon/<string:type>')
 def showType(type):
-    return "Shows all pokemon of selected type %s" % type
+    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.name))
+    all_types = session.query(Type).order_by(asc(Type.name))
+
+    pokemon_list = []
+    for pokemon in all_pokemon_list:
+        type_list = list(pokemon.type_list)
+        if type in type_list:
+            pokemon_list.append(pokemon)
+
+    return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = type)
 
 
 @app.route('/pokemon/<int:id>')

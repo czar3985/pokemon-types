@@ -3,9 +3,18 @@
 {% block body %}
 <main class="main-content">
   <select class="types-dropdown">
+    {% if selected_type == 'All' %}
     <option value="All" selected>All</option>
+    {% else %}
+    <option value="All">All</option>
+    {% endif %}
+
     {% for type in types %}
+    {% if selected_type == type %}
+    <option value="{{type.name}}" selected>{{type.name}}</option>
+    {% else %}
     <option value="{{type.name}}">{{type.name}}</option>
+    {% endif %}
     {% endfor %}
   </select>
 
