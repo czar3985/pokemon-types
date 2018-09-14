@@ -36,6 +36,15 @@ body {
   color: #007849; /* IRISES */
 }
 
+main {
+  margin: 5px;
+  padding-top: 150px;
+}
+
+a {
+  text-decoration: none;
+}
+
 /*
  *
  * Header
@@ -116,18 +125,10 @@ body {
 
 /*
  *
- * Body
+ * Home Page
  *
  *
 */
-main {
-  margin: 5px;
-  padding-top: 150px;
-}
-
-a {
-  text-decoration: none;
-}
 
 .main-content {
   display: flex;
@@ -226,11 +227,34 @@ a {
 
 /*
 *
-* Body styling for responsiveness
+* Details Page
 *
 *
 */
 
+.detail-image-container {
+  width: 80%;
+  margin: auto;
+}
+
+.details-image {
+  max-height: 200px;
+}
+
+.details-label {
+  font-weight: bold;
+}
+
+@media screen and (min-width: 500px) {
+
+}
+
+/*
+*
+* Body styling for responsiveness
+*
+*
+*/
 @media screen and (min-width: 900px) {
   body {
     width: 900px;

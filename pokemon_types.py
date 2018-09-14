@@ -13,6 +13,7 @@ import json
 from flask import make_response
 import requests
 
+from view_model import Pokemon_VM
 
 app = Flask(__name__)
 
@@ -190,7 +191,11 @@ def showType(type):
 
 @app.route('/pokemon/<int:id>')
 def showPokemon(id):
-    return "Details page for pokemon with id: %s" % id
+    pokemon = session.query(Pokemon).filter_by(id = id).one()
+
+    pokemon_view_model = Pokemon_VM(pokemon)
+
+    return render_template('details.html', pokemon = pokemon_view_model)
 
 
 @app.route('/pokemon/new')

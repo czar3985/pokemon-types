@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<main class="details-content">
+  <h2>{{pokemon.name}}</h2>
+
+  <div class="detail-image-container">
+    <img class="details-image" src="{{pokemon.image}}" />
+  </div>
+
+  <p><span class="details-label">Pokedex ID:</span> {{pokemon.id}}</p>
+  <p><span class="details-label">Category:</span> {{pokemon.category}}</p>
+  <p>
+    <span class="details-label">Type:</span>
+    {% for item in pokemon.types %}
+    {{item}},
+    {% endfor %}
+  </p>
+  <p><span class="details-label">Description:</span> {{pokemon.description}}</p>
+  <p><span class="details-label">Height:</span> {{pokemon.height}}</p>
+  <p><span class="details-label">Weight:</span> {{pokemon.weight}} lbs.</p>
+
+  <p class="details-label">Evolutions</p>
+  <p>Evolves from {{pokemon.evolution_before}}</p>
+  <p>
+    Evolves to
+    {% for item in pokemon.evolutions_after %}
+    {{item}},
+    {% endfor %}
+  </p>
+
+  <p>
+    <span class="details-label">Weaknesses:</span>
+    {% for item in pokemon.weaknesses %}
+    {{item}},
+    {% endfor %}
+  </p>
+
+  <p>
+    <span class="details-label">Moves:</span>
+    {% for item in pokemon.moves %}
+    {{item}},
+    {% endfor %}
+  </p>
+
+  {% if pokemon.is_mythical %}
+  <p>Mythical Pokemon</p>
+  {% endif %}
+  {% if pokemon.is_legendary %}
+  <p>Legendary Pokemon</p>
+  {% endif %}
+</main>
+{% endblock %}
