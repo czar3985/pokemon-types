@@ -99,6 +99,23 @@ body {
 
 /*
  *
+ * Flash Message
+ *
+ *
+*/
+
+.flash {
+  background: #438496;
+  width: 100%;
+}
+
+.flash li {
+  list-style-type: none;
+  text-align: center;
+}
+
+/*
+ *
  * Body
  *
  *

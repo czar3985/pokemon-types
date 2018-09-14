@@ -163,6 +163,10 @@ def gdisconnect():
 @app.route('/pokemon/')
 def showHome():
     pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.name))
+
+    if not pokemon_list:
+        flash('There are currently no pokemon in the database.')
+
     types = session.query(Type).order_by(asc(Type.name))
     return render_template('home.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
 
@@ -177,6 +181,9 @@ def showType(type):
         type_list = list(pokemon.type_list)
         if type in type_list:
             pokemon_list.append(pokemon)
+
+    if not pokemon_list:
+        flash('There are currently no %s type pokemon in the database.' % type)
 
     return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = type)
 
