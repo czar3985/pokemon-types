@@ -2,6 +2,8 @@
 
 {% block body %}
 <main class="main-content">
+
+  <!--Flash Message-->
   <div class="flash">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -13,6 +15,8 @@
     {% endif %}
     {% endwith %}
   </div>
+
+  <!--Type selection dropdown box for small viewports-->
   <select class="types-dropdown">
     {% if selected_type == 'All' %}
     <option value="All" selected>All</option>
@@ -29,6 +33,7 @@
     {% endfor %}
   </select>
 
+  <!--Type selection at the sidebar for wider viewports-->
   <sidebar class="types-section">
     <a class="type-link" href="#"><div class="type-text">All</div></a>
     {% for type in types %}
@@ -36,6 +41,7 @@
     {% endfor %}
   </sidebar>
 
+  <!--Pokemon tiles-->
   <section class="tiles-area">
     {% for pokemon in pokemon_list %}
     <div class="tile">
