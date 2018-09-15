@@ -13,7 +13,7 @@ import json
 from flask import make_response
 import requests
 
-from view_model import Pokemon_VM
+from view_model import Pokemon_VM, get_type_id
 
 app = Flask(__name__)
 
@@ -176,12 +176,13 @@ def showHome():
 def showType(type):
     all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.name))
     all_types = session.query(Type).order_by(asc(Type.name))
+    type_id = get_type_id(type, session)
 
     pokemon_list = []
     if all_pokemon_list:
         for pokemon in all_pokemon_list:
             type_list = list(pokemon.type_list)
-            if type in type_list:
+            if type_id in type_list:
                 pokemon_list.append(pokemon)
 
     if not pokemon_list:
