@@ -178,10 +178,11 @@ def showType(type):
     all_types = session.query(Type).order_by(asc(Type.name))
 
     pokemon_list = []
-    for pokemon in all_pokemon_list:
-        type_list = list(pokemon.type_list)
-        if type in type_list:
-            pokemon_list.append(pokemon)
+    if all_pokemon_list:
+        for pokemon in all_pokemon_list:
+            type_list = list(pokemon.type_list)
+            if type in type_list:
+                pokemon_list.append(pokemon)
 
     if not pokemon_list:
         flash('There are currently no %s type pokemon in the database.' % type)
