@@ -193,7 +193,7 @@ def showType(type):
 def showPokemon(id):
     pokemon = session.query(Pokemon).filter_by(id = id).one()
 
-    pokemon_view_model = Pokemon_VM(pokemon)
+    pokemon_view_model = Pokemon_VM(pokemon, session)
 
     return render_template('details.html', pokemon = pokemon_view_model)
 
