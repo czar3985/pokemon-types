@@ -1,6 +1,8 @@
 from database_setup import Pokemon, Type, Move
 
-
+#
+# POKEMON HEIGHT FUNCTIONS
+#
 def get_height_for_display(height_num):
     """ Converts the height database entry to height string for display
 
@@ -12,6 +14,9 @@ def get_height_for_display(height_num):
     return height_string
 
 
+#
+# POKEMON NAME FUNCTIONS
+#
 def get_pokemon_name(id, session):
     """Return the pokemon name given the pokemon ID"""
     pokemon = session.query(Pokemon).filter_by(id = id).first()
@@ -20,6 +25,16 @@ def get_pokemon_name(id, session):
         return pokemon.name
     else:
         return ''
+
+
+def get_pokemon_id(name, session):
+    """Return the pokemon id given the pokemon name"""
+    pokemon = session.query(Pokemon).filter_by(name = name).first()
+
+    if pokemon:
+        return pokemon.id
+    else:
+        return None
 
 
 def get_pokemon_name_list(pokemon_id_list, session):
@@ -36,6 +51,19 @@ def get_pokemon_name_list(pokemon_id_list, session):
     return pokemon_list
 
 
+#
+# POKEMON TYPE FUNCTIONS
+#
+def get_type_id(name, session):
+    """Return the type id given the type name"""
+    type = session.query(Type).filter_by(name = name).first()
+
+    if type:
+        return type.id
+    else:
+        return None
+
+
 def get_type_name_list(type_id_list, session):
     """Return a list of type names given the list of type IDs"""
     type_list = []
@@ -48,6 +76,19 @@ def get_type_name_list(type_id_list, session):
                 type_list.append(type.name)
 
     return type_list
+
+
+#
+# POKEMON MOVE FUNCTIONS
+#
+def get_move_id(name, session):
+    """Return the move id given the move name"""
+    move = session.query(Move).filter_by(name = name).first()
+
+    if move:
+        return move.id
+    else:
+        return None
 
 
 def get_move_name_list(move_id_list, session):
@@ -64,6 +105,9 @@ def get_move_name_list(move_id_list, session):
     return move_list
 
 
+#
+# DATA VIEW MODEL
+#
 class Pokemon_VM():
     def __init__(self, pokemon, session):
         """Map the columns from the Pokemon table to properties for display to the page"""
