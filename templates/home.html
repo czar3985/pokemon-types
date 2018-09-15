@@ -35,9 +35,17 @@
 
   <!--Type selection at the sidebar for wider viewports-->
   <sidebar class="types-section">
-    <a class="type-link" href="#"><div class="type-text">All</div></a>
+    <a class="type-link" href="{{url_for('showHome')}}">
+      <div class="type-text">
+        All
+      </div>
+    </a>
     {% for type in types %}
-    <a class="type-link" href="#"><div class="type-text">{{type.name}}</div></a>
+    <a class="type-link" href="{{url_for('showType', type = type.name)}}">
+      <div class="type-text">
+        {{type.name}}
+      </div>
+    </a>
     {% endfor %}
   </sidebar>
 
