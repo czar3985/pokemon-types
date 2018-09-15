@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from database_setup import Base, Pokemon, Category, Type, Move, User
+from view_model import get_type_id, get_move_id
 
 engine = create_engine('sqlite:///pokemon.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -104,6 +105,7 @@ move_scratch = Move(name="Scratch")
 move_seed_bomb = Move(name="Seed Bomb")
 move_skull_bash = Move(name="Skull Bash")
 move_slash = Move(name="Slash")
+move_sleep_powder = Move(name="Sleep Powder")
 move_smokescreen = Move(name="Smokescreen")
 move_sweet_scent = Move(name="Sweet Scent")
 move_synthesis = Move(name="Synthesis")
@@ -142,6 +144,7 @@ session.add(move_scratch)
 session.add(move_seed_bomb)
 session.add(move_skull_bash)
 session.add(move_slash)
+session.add(move_sleep_powder)
 session.add(move_smokescreen)
 session.add(move_sweet_scent)
 session.add(move_synthesis)
@@ -157,6 +160,37 @@ session.add(move_worry_seed)
 session.commit()
 
 # Pokemon
+
+# BULBASAUR
+bulbasaur_type_id_list = []
+bulbasaur_type_id_list.append(get_type_id('Grass', session))
+bulbasaur_type_id_list.append(get_type_id('Poison', session))
+
+bulbasaur_weakness_id_list = []
+bulbasaur_weakness_id_list.append(get_type_id('Fire', session))
+bulbasaur_weakness_id_list.append(get_type_id('Flying', session))
+bulbasaur_weakness_id_list.append(get_type_id('Ice', session))
+bulbasaur_weakness_id_list.append(get_type_id('Psychic', session))
+
+bulbasur_move_id_list = []
+bulbasur_move_id_list.append(get_move_id('Tackle', session))
+bulbasur_move_id_list.append(get_move_id('Growl', session))
+bulbasur_move_id_list.append(get_move_id('Leech Seed', session))
+bulbasur_move_id_list.append(get_move_id('Vine Whip', session))
+bulbasur_move_id_list.append(get_move_id('Poison Powder', session))
+bulbasur_move_id_list.append(get_move_id('Sleep Powder', session))
+bulbasur_move_id_list.append(get_move_id('Take Down', session))
+bulbasur_move_id_list.append(get_move_id('Razor Leaf', session))
+bulbasur_move_id_list.append(get_move_id('Sweet Scent', session))
+bulbasur_move_id_list.append(get_move_id('Growth', session))
+bulbasur_move_id_list.append(get_move_id('Double-Edge', session))
+bulbasur_move_id_list.append(get_move_id('Worry Seed', session))
+bulbasur_move_id_list.append(get_move_id('Synthesis', session))
+bulbasur_move_id_list.append(get_move_id('Seed Bomb', session))
+
+bulbasaur_evolution_id_list = []
+bulbasaur_evolution_id_list.append(2)
+
 bulbasaur = Pokemon(id = 1,
                     name = "Bulbasaur",
                     description = "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
@@ -165,11 +199,40 @@ bulbasaur = Pokemon(id = 1,
                     weight = 15.2,
                     is_mythical = False,
                     is_legendary = False,
-                    type_list = [],
-                    weakness_list = [],
-                    move_list = [],
+                    evolution_before = None,
+                    evolution_after_list = bulbasaur_evolution_id_list,
+                    type_list = bulbasaur_type_id_list,
+                    weakness_list = bulbasaur_weakness_id_list,
+                    move_list = bulbasur_move_id_list,
                     category = category_seed,
                     user = user_kanto_admin)
+
+# CHARMANDER
+charmander_type_id_list = []
+charmander_type_id_list.append(get_type_id('Fire', session))
+
+charmander_weakness_id_list = []
+charmander_weakness_id_list.append(get_type_id('Ground', session))
+charmander_weakness_id_list.append(get_type_id('Rock', session))
+charmander_weakness_id_list.append(get_type_id('Water', session))
+
+charmander_move_id_list = []
+charmander_move_id_list.append(get_move_id('Scratch', session))
+charmander_move_id_list.append(get_move_id('Growl', session))
+charmander_move_id_list.append(get_move_id('Ember', session))
+charmander_move_id_list.append(get_move_id('Smokescreen', session))
+charmander_move_id_list.append(get_move_id('Dragon Rage', session))
+charmander_move_id_list.append(get_move_id('Scary Face', session))
+charmander_move_id_list.append(get_move_id('Fire Fang', session))
+charmander_move_id_list.append(get_move_id('Flame Burst', session))
+charmander_move_id_list.append(get_move_id('Slash', session))
+charmander_move_id_list.append(get_move_id('Flamethrower', session))
+charmander_move_id_list.append(get_move_id('Fire Spin', session))
+charmander_move_id_list.append(get_move_id('Inferno', session))
+
+charmander_evolution_id_list = []
+charmander_evolution_id_list.append(5)
+
 charmander = Pokemon(id = 4,
                     name = "Charmander",
                     description = "The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is enjoying itself. If the Pokemon becomes enraged, the flame burns fiercely.",
@@ -178,11 +241,41 @@ charmander = Pokemon(id = 4,
                     weight = 15.2,
                     is_mythical = False,
                     is_legendary = False,
-                    type_list = [],
-                    weakness_list = [],
-                    move_list = [],
+                    evolution_before = None,
+                    evolution_after_list = charmander_evolution_id_list,
+                    type_list = charmander_type_id_list,
+                    weakness_list = charmander_weakness_id_list,
+                    move_list = charmander_move_id_list,
                     category = category_lizard,
                     user = user_kanto_admin)
+
+# SQUIRTLE
+squirtle_type_id_list = []
+squirtle_type_id_list.append(get_type_id('Water', session))
+
+squirtle_weakness_id_list = []
+squirtle_weakness_id_list.append(get_type_id('Electric', session))
+squirtle_weakness_id_list.append(get_type_id('Grass', session))
+
+squirtle_move_id_list = []
+squirtle_move_id_list.append(get_move_id('Tackle', session))
+squirtle_move_id_list.append(get_move_id('Tail Whip', session))
+squirtle_move_id_list.append(get_move_id('Water Gun', session))
+squirtle_move_id_list.append(get_move_id('Withdraw', session))
+squirtle_move_id_list.append(get_move_id('Bubble', session))
+squirtle_move_id_list.append(get_move_id('Bite', session))
+squirtle_move_id_list.append(get_move_id('Rapid Spin', session))
+squirtle_move_id_list.append(get_move_id('Protect', session))
+squirtle_move_id_list.append(get_move_id('Water Pulse', session))
+squirtle_move_id_list.append(get_move_id('Aqua Tail', session))
+squirtle_move_id_list.append(get_move_id('Skull Bash', session))
+squirtle_move_id_list.append(get_move_id('Iron Defense', session))
+squirtle_move_id_list.append(get_move_id('Rain Dance', session))
+squirtle_move_id_list.append(get_move_id('Hydro Pump', session))
+
+squirtle_evolution_id_list = []
+squirtle_evolution_id_list.append(8)
+
 squirtle = Pokemon(id = 7,
                     name = "Squirtle",
                     description = "Squirtle's shell is not merely used for protection. The shell's rounded shape and the grooves on its surface help minimize resistance in water, enabling this Pokemon to swim at high speeds.",
@@ -191,9 +284,11 @@ squirtle = Pokemon(id = 7,
                     weight = 19.8,
                     is_mythical = False,
                     is_legendary = False,
-                    type_list = [],
-                    weakness_list = [],
-                    move_list = [],
+                    evolution_before = None,
+                    evolution_after_list = squirtle_evolution_id_list,
+                    type_list = squirtle_type_id_list,
+                    weakness_list = squirtle_weakness_id_list,
+                    move_list = squirtle_move_id_list,
                     category = category_tiny_turtle,
                     user = user_kanto_admin)
 session.add(bulbasaur)
