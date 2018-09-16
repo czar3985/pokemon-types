@@ -199,14 +199,15 @@ a {
   }
 }
 
-.type-link {
-  color: black;
-  padding-left: 5px;
-  font-size: 1.25em;
-}
-
 .type-highlight {
   background-color: #438496;
+}
+
+.type-text {
+  color: black;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1.25em;
 }
 
 .type-text:hover {
@@ -226,6 +227,8 @@ a {
 
 .tile-name {
   text-align: center;
+  color: #007849;
+  font-size: 1.25em;
 }
 
 /*
