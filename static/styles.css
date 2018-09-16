@@ -163,7 +163,7 @@ a {
 }
 
 .type-highlight {
-  background-color: #438496;
+  background-color: #438496; /* BREEZE */
 }
 
 .type-text {
@@ -174,7 +174,7 @@ a {
 }
 
 .type-text:hover {
-  background-color: #eaeaea;
+  background-color: #EAEAEA;
 }
 
 .create-section {
@@ -184,15 +184,14 @@ a {
 
 .create-link {
   float: left;
-  color: #CD5360;
   padding: 10px;
-  border: 1px solid #CD5360;
+  border: 1px solid #CD5360; /* WARM PEACH */
   border-radius: 4px;
   font-size: 1.25em;
 }
 
 .tile:hover {
-  background-color: #eaeaea;
+  background-color: #EAEAEA;
   cursor: pointer;
 }
 
@@ -204,7 +203,6 @@ a {
 
 .tile-name {
   text-align: center;
-  color: #007849;
   font-size: 1.25em;
 }
 

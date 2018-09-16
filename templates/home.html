@@ -55,7 +55,7 @@
     <!--Create a new pokemon button-->
     <div class="create-section">
       <a href="{{url_for('newPokemon')}}">
-        <div class="create-link">
+        <div class="create-link accent-color-1">
           Add a Pokemon
         </div>
       </a>
@@ -67,7 +67,7 @@
       <a href="{{url_for('showPokemon', id = pokemon.id)}}">
         <div class="tile-inner">
           <img class="tile-image" src="{{pokemon.image}}" />
-          <h3 class="tile-name">{{pokemon.name}}</h3>
+          <h3 class="tile-name accent-color-2">{{pokemon.name}}</h3>
         </div>
       </a>
     </div>
