@@ -53,8 +53,12 @@
   <section class="tiles-area">
     {% for pokemon in pokemon_list %}
     <div class="tile">
-      <img class="tile-image" src="{{pokemon.image}}" />
-      <h3 class="tile-name">{{pokemon.name}}</h3>
+      <a href="{{url_for('showPokemon', id = pokemon.id)}}">
+        <div class="tile-inner">
+          <img class="tile-image" src="{{pokemon.image}}" />
+          <h3 class="tile-name">{{pokemon.name}}</h3>
+        </div>
+      </a>
     </div>
     {% endfor %}
   </section>
