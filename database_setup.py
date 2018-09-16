@@ -71,7 +71,7 @@ class Pokemon(Base):
     is_mythical = Column(Boolean, nullable = False)
     is_legendary = Column(Boolean, nullable = False)
     evolution_before = Column(Integer, nullable = True)
-    evolution_after_list = Column(PickleType, nullable = False)
+    evolution_after_list = Column(PickleType, nullable = True)
     type_list = Column(PickleType, nullable = False)
     weakness_list = Column(PickleType, nullable = False)
     move_list = Column(PickleType, nullable = False)
