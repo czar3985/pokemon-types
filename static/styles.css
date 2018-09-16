@@ -184,6 +184,10 @@ a {
 
 .create-link {
   float: left;
+}
+
+.create-link,
+.submit-link {
   padding: 10px;
   border: 1px solid #CD5360; /* WARM PEACH */
   border-radius: 4px;
@@ -267,8 +271,44 @@ a {
   font-weight: bold;
 }
 
-@media screen and (min-width: 500px) {
+/*
+*
+* New Page
+*
+*
+*/
 
+.input-group {
+  border: 1px solid #B37D4E; /* FIELD */
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 0.5em;
+}
+
+input[type=text],
+.input-group textarea {
+  width: 100%;
+}
+
+input[type=text],
+input[type=number],
+.input-group textarea {
+  padding: 0.5em;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #B37D4E; /* FIELD */
+  border-radius: 4px;
+  font: inherit;
+  color: inherit;
+}
+
+.input-group textarea {
+  height: 4.5em;
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
+  margin: 8px 8px;
 }
 
 /*

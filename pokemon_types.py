@@ -202,7 +202,7 @@ def showPokemon(id):
 
 @app.route('/pokemon/new')
 def newPokemon():
-    return "New pokemon page"
+    return render_template('new.html')
 
 
 @app.route('/pokemon/<int:id>/edit')
