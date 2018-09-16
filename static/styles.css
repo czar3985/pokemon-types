@@ -205,6 +205,10 @@ a {
   font-size: 1.25em;
 }
 
+.type-highlight {
+  background-color: #438496;
+}
+
 .type-text:hover {
   background-color: #eaeaea;
 }
