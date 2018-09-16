@@ -51,6 +51,17 @@
 
   <!--Pokemon tiles-->
   <section class="tiles-area">
+
+    <!--Create a new pokemon button-->
+    <div class="create-section">
+      <a href="{{url_for('newPokemon')}}">
+        <div class="create-link">
+          Add a Pokemon
+        </div>
+      </a>
+    </div>
+
+    <!--Pokemon in the list-->
     {% for pokemon in pokemon_list %}
     <div class="tile">
       <a href="{{url_for('showPokemon', id = pokemon.id)}}">
