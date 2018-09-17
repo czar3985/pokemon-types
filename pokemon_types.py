@@ -13,7 +13,7 @@ import json
 from flask import make_response
 import requests
 
-from view_model import Pokemon_VM, get_type_id, get_category_id
+from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id
 
 app = Flask(__name__)
 
@@ -200,17 +200,59 @@ def showPokemon(id):
     return render_template('details.html', pokemon = pokemon_view_model)
 
 
-def parse_evolution_after_list(pokemon_list):
-    return []
+def parse_evolution_after_list(pokemon_input):
+    # Get the list of pokemon from the comma-separated input
+    separated_input = pokemon_input.replace(' ','').split(',')
+
+    pokemon_list = []
+    if separated_input:
+        # Check if pokemon id is valid
+        for item in separated_input:
+            try:
+                int(item)
+                pokemon_list.append(item)
+            except ValueError:
+                continue
+
+    return pokemon_list
 
 
-def parse_type_list(type_list):
-    return []
+def parse_type_list(type_input):
+    # Get the list of types from the comma-separated input
+    separated_input = type_input.split(',')
+
+    type_list = []
+    if separated_input:
+        # All possible types have been added in the database.
+        # Check each type input now for validity
+        for item in separated_input:
+            type = string.capwords(item.strip())
+            id = get_type_id(type, session)
+            if (id != None):
+                type_list.append(id)
+
+    return type_list
 
 
-def parse_move_list(move_list):
-    # Add a database entry for new moves
-    return []
+def parse_move_list(move_input):
+    # Get the list of moves from the comma-separated input
+    separated_input = move_input.split(',')
+
+    move_list = []
+    if separated_input:
+        # Check each move if already in the database
+        for item in separated_input:
+            move = string.capwords(item.strip())
+            id = get_move_id(move, session)
+            if (id != None):
+                move_list.append(id)
+            else:
+                new_move = Move(name = move)
+                session.add(new_move)
+                session.commit()
+                move_list.append(get_move_id(move, session))
+
+    return move_list
 
 
 def check_category(category_name):
