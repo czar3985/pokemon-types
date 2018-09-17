@@ -36,13 +36,13 @@
   <!--Type selection at the sidebar for wider viewports-->
   <sidebar class="types-section">
     <a class="type-link" href="{{url_for('showHome')}}">
-      <div class="type-text">
+      <div class="type-text color-theme-2">
         All
       </div>
     </a>
     {% for type in types %}
     <a class="type-link" href="{{url_for('showType', type = type.name)}}">
-      <div class="type-text">
+      <div class="type-text color-theme-2">
         {{type.name}}
       </div>
     </a>
@@ -55,7 +55,7 @@
     <!--Create a new pokemon button-->
     <div class="create-section">
       <a href="{{url_for('newPokemon')}}">
-        <div class="create-link accent-color-1">
+        <div class="create-link">
           Add a Pokemon
         </div>
       </a>

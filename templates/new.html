@@ -3,7 +3,7 @@
 {% block body %}
 <main>
 
-  <h2>Add a pokemon</h2>
+  <h2 class="color-theme-1">Add a pokemon</h2>
 
   <form action="{{url_for('newPokemon')}}" method='POST'>
     <div class="input-group">
@@ -29,8 +29,8 @@
       <input type="number" id="weight" name="weight" min="0" required>
       <br />
 
-      <input type="checkbox" name="mythical" value="True">Mythical Pokemon<br>
-      <input type="checkbox" name="legendary" value="True">Legendary Pokemon<br>
+      <input type="checkbox" name="mythical" value="True"><span>Mythical Pokemon</span><br>
+      <input type="checkbox" name="legendary" value="True"><span>Legendary Pokemon</span><br>
 
       <label for="evolution_before">Pokedex ID of pokemon it evolved from or blank if none</label>
       <input type="number" id="evolution_before" name="evolution_before" min="1" max="806">
@@ -53,9 +53,13 @@
 
     </div>
 
-    <input class="submit-link accent-color-1" type='submit' value='Create'>
+    <input class="submit-link" type='submit' value='Create'>
 
+    <a href="{{url_for('showHome')}}">
+      <div class="cancel-link accent-color-1">
+        Cancel
+      </div>
+    </a>
   </form>
-  <a class="accent-color-1" href="{{url_for('showHome')}}">Cancel</a>
 </main>
 {% endblock %}
