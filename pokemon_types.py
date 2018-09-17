@@ -13,7 +13,7 @@ import json
 from flask import make_response
 import requests
 
-from view_model import Pokemon_VM, get_type_id
+from view_model import Pokemon_VM, get_type_id, get_category_id
 
 app = Flask(__name__)
 
@@ -200,32 +200,55 @@ def showPokemon(id):
     return render_template('details.html', pokemon = pokemon_view_model)
 
 
+def parse_evolution_after_list(pokemon_list):
+    return []
+
+
+def parse_type_list(type_list):
+    return []
+
+
+def parse_move_list(move_list):
+    # Add a database entry for new moves
+    return []
+
+
+def check_category(category_name):
+    # Database entries are in capitalized first letter format
+    category_name_cap = string.capwords(category_name)
+
+    # Check if already in the database
+    id = get_category_id(category_name_cap, session)
+    if id == None:
+        # Add to the database if not found
+        new_category = Category(name = category_name_cap)
+        session.add(new_category)
+        session.commit()
+        id = get_category_id(category_name_cap, session)
+
+    return id
+
+
 @app.route('/pokemon/new', methods=['GET','POST'])
 def newPokemon():
     if request.method == 'POST':
-        # Compute height
-        height = 0
+        height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int)
 
-        # Get mythical or legendary
-        is_mythical = False
-        is_legendary = False
+        if request.form.get('mythical'):
+            is_mythical = True
+        else:
+            is_mythical = False
 
-        # Get evolution_after
-        evolution_after_list = []
+        if request.form.get('legendary'):
+            is_legendary = True
+        else:
+            is_legendary = False
 
-        # Get type
-        type_list = []
-
-        # Get weaknesses
-        weakness_list = []
-
-        # Get moves
-        move_list = []
-
-        # Get category
-        category_id = 1
-
-        # Get user_id
+        evolution_after_list = parse_evolution_after_list(request.form['evolution_after'])
+        type_list = parse_type_list(request.form['type'])
+        weakness_list = parse_type_list(request.form['weakness'])
+        move_list = parse_move_list(request.form['move'])
+        category_id = check_category(request.form['category'])
         user_id = 1
 
         newPokemon = Pokemon(id = request.form['id'],

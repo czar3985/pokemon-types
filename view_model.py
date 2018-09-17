@@ -1,4 +1,4 @@
-from database_setup import Pokemon, Type, Move
+from database_setup import Pokemon, Type, Move, Category
 
 #
 # POKEMON HEIGHT FUNCTIONS
@@ -103,6 +103,19 @@ def get_move_name_list(move_id_list, session):
                 move_list.append(move.name)
 
     return move_list
+
+
+#
+# POKEMON CATEGORY FUNCTIONS
+#
+def get_category_id(name, session):
+    """Return the category id given the category name"""
+    category = session.query(Category).filter_by(name = name).first()
+
+    if category:
+        return category.id
+    else:
+        return None
 
 
 #
