@@ -2,6 +2,20 @@
 
 {% block body %}
 <main class="details-content">
+
+  <!--Flash Message-->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="flash">
+    <ul>
+      {% for message in messages %}
+      <li><strong>{{message}}</strong></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endwith %}
+
   <h2 class="color-theme-1">{{pokemon.name}}</h2>
 
   <div class="detail-image-container">
@@ -88,9 +102,9 @@
   </table>
   <br /><br />
   <a href="{{url_for('showHome')}}">
-      <div class="cancel-link accent-color-1">
-        Return to Home
-      </div>
-    </a>
+    <div class="cancel-link accent-color-1">
+      Return to Home
+    </div>
+  </a>
 </main>
 {% endblock %}
