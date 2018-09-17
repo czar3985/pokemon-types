@@ -13,7 +13,7 @@ import json
 from flask import make_response
 import requests
 
-from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id
+from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id, get_pokemon_name_list, get_type_name_list, get_move_name_list
 
 app = Flask(__name__)
 
@@ -274,8 +274,6 @@ def check_category(category_name):
 @app.route('/pokemon/new', methods=['GET','POST'])
 def newPokemon():
     if request.method == 'POST':
-        height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int)
-
         if request.form.get('mythical'):
             is_mythical = True
         else:
@@ -286,39 +284,77 @@ def newPokemon():
         else:
             is_legendary = False
 
-        evolution_after_list = parse_evolution_after_list(request.form['evolution_after'])
-        type_list = parse_type_list(request.form['type'])
-        weakness_list = parse_type_list(request.form['weakness'])
-        move_list = parse_move_list(request.form['move'])
-        category_id = check_category(request.form['category'])
-        user_id = 1
-
         newPokemon = Pokemon(id = request.form['id'],
                             name = request.form['name'],
                             description = request.form['description'],
                             image = request.form['image'],
-                            height = height,
+                            height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int),
                             weight = request.form['weight'],
                             is_mythical = is_mythical,
                             is_legendary = is_legendary,
                             evolution_before = request.form['evolution_before'],
-                            evolution_after_list = evolution_after_list,
-                            type_list = type_list,
-                            weakness_list = weakness_list,
-                            move_list = move_list,
-                            category_id = category_id,
-                            user_id = user_id)
+                            evolution_after_list = parse_evolution_after_list(request.form['evolution_after']),
+                            type_list = parse_type_list(request.form['type']),
+                            weakness_list = parse_type_list(request.form['weakness']),
+                            move_list = parse_move_list(request.form['move']),
+                            category_id = check_category(request.form['category']),
+                            user_id = 1)
+
         session.add(newPokemon)
         session.commit()
+
         flash('New pokemon added')
         return redirect(url_for('showPokemon', id = newPokemon.id))
     else:
         return render_template('new.html')
 
 
-@app.route('/pokemon/<int:id>/edit')
+@app.route('/pokemon/<int:id>/edit', methods=['GET','POST'])
 def editPokemon(id):
-    return "Edit page for pokemon with id: %s" % id
+    pokemon = session.query(Pokemon).filter_by(id = id).one()
+    if request.method == 'POST':
+        pokemon.name = request.form['name']
+        pokemon.description = request.form['description']
+        pokemon.image = request.form['image']
+
+        pokemon.height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int)
+        pokemon.weight = request.form['weight']
+
+        if request.form.get('mythical'):
+            pokemon.is_mythical = True
+        else:
+            pokemon.is_mythical = False
+
+        if request.form.get('legendary'):
+            pokemon.is_legendary = True
+        else:
+            pokemon.is_legendary = False
+
+        pokemon.evolution_before = request.form['evolution_before']
+        pokemon.evolution_after_list = parse_evolution_after_list(request.form['evolution_after'])
+        pokemon.type_list = parse_type_list(request.form['type'])
+        pokemon.weakness_list = parse_type_list(request.form['weakness'])
+        pokemon.move_list = parse_move_list(request.form['move'])
+        pokemon.category_id = check_category(request.form['category'])
+
+        session.add(pokemon)
+        session.commit()
+
+        flash('Pokemon details edited')
+        return redirect(url_for('showPokemon', id = newPokemon.id))
+
+    else:
+        evolutions_after = ', '.join(get_pokemon_name_list(pokemon.evolution_after_list, session))
+        types = ', '.join(get_type_name_list(pokemon.type_list, session))
+        weaknesses = ', '.join(get_type_name_list(pokemon.weakness_list, session))
+        moves = ', '.join(get_move_name_list(pokemon.move_list, session))
+
+        return render_template('edit.html',
+                               pokemon = pokemon,
+                               evolutions_after = evolutions_after,
+                               types = types,
+                               weaknesses = weaknesses,
+                               moves = moves)
 
 
 @app.route('/pokemon/<int:id>/delete')
