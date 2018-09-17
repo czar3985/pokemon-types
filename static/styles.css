@@ -272,6 +272,13 @@ a {
   font-weight: bold;
 }
 
+.details-table,
+.details-table td {
+  border: 1px solid #B37D4E; /* FIELD */
+  border-collapse: collapse;
+  padding: 8px;
+}
+
 /*
 *
 * New Page
