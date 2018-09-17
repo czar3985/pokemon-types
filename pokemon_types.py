@@ -200,9 +200,55 @@ def showPokemon(id):
     return render_template('details.html', pokemon = pokemon_view_model)
 
 
-@app.route('/pokemon/new')
+@app.route('/pokemon/new', methods=['GET','POST'])
 def newPokemon():
-    return render_template('new.html')
+    if request.method == 'POST':
+        # Compute height
+        height = 0
+
+        # Get mythical or legendary
+        is_mythical = False
+        is_legendary = False
+
+        # Get evolution_after
+        evolution_after_list = []
+
+        # Get type
+        type_list = []
+
+        # Get weaknesses
+        weakness_list = []
+
+        # Get moves
+        move_list = []
+
+        # Get category
+        category_id = 1
+
+        # Get user_id
+        user_id = 1
+
+        newPokemon = Pokemon(id = request.form['id'],
+                            name = request.form['name'],
+                            description = request.form['description'],
+                            image = request.form['image'],
+                            height = height,
+                            weight = request.form['weight'],
+                            is_mythical = is_mythical,
+                            is_legendary = is_legendary,
+                            evolution_before = request.form['evolution_before'],
+                            evolution_after_list = evolution_after_list,
+                            type_list = type_list,
+                            weakness_list = weakness_list,
+                            move_list = move_list,
+                            category_id = category_id,
+                            user_id = user_id)
+        session.add(newPokemon)
+        session.commit()
+        flash('New pokemon added')
+        return redirect(url_for('showPokemon', id = newPokemon.id))
+    else:
+        return render_template('new.html')
 
 
 @app.route('/pokemon/<int:id>/edit')
