@@ -101,6 +101,16 @@
     </tr>
   </table>
   <br /><br />
+  <a href="{{url_for('editPokemon', id = pokemon.id)}}">
+    <div class="edit-link">
+      Edit
+    </div>
+  </a>
+  <a href="{{url_for('deletePokemon', id = pokemon.id)}}">
+    <div class="delete-link accent-color-1">
+      Delete
+    </div>
+  </a>
   <a href="{{url_for('showHome')}}">
     <div class="cancel-link accent-color-1">
       Return to Home

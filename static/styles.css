@@ -287,6 +287,26 @@ a {
   padding: 8px;
 }
 
+.edit-link,
+.delete-link {
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1.25em;
+  margin-right: 10px;
+}
+
+.edit-link {
+  background-color: #007849; /* IRISES */
+  color: white;
+  display: inline;
+}
+
+.delete-link {
+  background-color: #CD5360; /* IRISES */
+  color: white;
+  display: inline;
+}
+
 /*
 *
 * New Page
@@ -338,6 +358,7 @@ input[type=checkbox] {
   border-radius: 4px;
   font-size: 1.25em;
   display: inline;
+  margin-right: 10px;
 }
 
 /*
