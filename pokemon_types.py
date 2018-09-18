@@ -341,7 +341,7 @@ def editPokemon(id):
         session.commit()
 
         flash('Pokemon details edited')
-        return redirect(url_for('showPokemon', id = newPokemon.id))
+        return redirect(url_for('showPokemon', id = pokemon.id))
 
     else:
         evolutions_after = ', '.join(get_pokemon_name_list(pokemon.evolution_after_list, session))
