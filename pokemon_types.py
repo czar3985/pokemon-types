@@ -247,6 +247,9 @@ def parse_move_list(move_input):
             if (id != None):
                 move_list.append(id)
             else:
+                if move == '':
+                    continue
+
                 new_move = Move(name = move)
                 session.add(new_move)
                 session.commit()
