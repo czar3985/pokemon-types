@@ -19,12 +19,15 @@ def get_height_for_display(height_num):
 #
 def get_pokemon_name(id, session):
     """Return the pokemon name given the pokemon ID"""
-    pokemon = session.query(Pokemon).filter_by(id = id).first()
+    if id:
+        pokemon = session.query(Pokemon).filter_by(id = id).first()
 
-    if pokemon:
-        return pokemon.name
-    else:
-        return ''
+        if pokemon:
+            return pokemon.name
+        else:
+            return 'Pokemon with ID# %s' % id
+
+    return ''
 
 
 def get_pokemon_id(name, session):
@@ -43,10 +46,8 @@ def get_pokemon_name_list(pokemon_id_list, session):
 
     if pokemon_id_list:
         for id in pokemon_id_list:
-            pokemon = session.query(Pokemon).filter_by(id = id).first()
-
-            if pokemon:
-                pokemon_list.append(pokemon.name)
+            name = get_pokemon_name(id, session)
+            pokemon_list.append(name)
 
     return pokemon_list
 
