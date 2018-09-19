@@ -357,9 +357,18 @@ def editPokemon(id):
                                moves = moves)
 
 
-@app.route('/pokemon/<int:id>/delete')
+@app.route('/pokemon/<int:id>/delete', methods=['GET','POST'])
 def deletePokemon(id):
-    return "Delete page for pokemon with id: %s" % id
+    pokemon = session.query(Pokemon).filter_by(id = id).one()
+
+    if request.method == 'POST':
+        session.delete(pokemon)
+        session.commit()
+        flash('Pokemon deleted')
+        return redirect(url_for('showHome'))
+
+    else:
+        return render_template('delete.html', pokemon = pokemon)
 
 
 @app.route('/pokemon/json')
