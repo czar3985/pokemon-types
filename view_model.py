@@ -139,3 +139,8 @@ class Pokemon_VM():
         self.weaknesses = get_type_name_list(pokemon.weakness_list, session)
         self.moves = get_move_name_list(pokemon.move_list, session)
         self.category = pokemon.category.name
+        if pokemon.user.name == '':
+            self.user = pokemon.user.email
+        else:
+            self.user = pokemon.user.name
+

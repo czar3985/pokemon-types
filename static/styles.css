@@ -267,13 +267,33 @@ main {
   display: inline;
 }
 
+.details-user-info {
+  font-style: italic;
+  font-size: 0.75em;
+  float: right;
+  margin-bottom: 10px;
+}
+
+.details-buttons {
+  clear: both;
+}
+
+.details-content .cancel-link {
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 370px) {
+  .details-content .cancel-link {
+    margin-top: 0;
+  }
+}
+
 /*
 *
 * New Page
 *
 *
 */
-
 .input-group {
   border: 1px solid;
   border-radius: 8px;
@@ -317,7 +337,7 @@ input[type=checkbox] {
   border: 1px solid;
   border-radius: 4px;
   font-size: 1.25em;
-  display: inline;
+  display: inline-block;
   margin-right: 10px;
 }
 
