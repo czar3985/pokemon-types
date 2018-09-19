@@ -6,7 +6,7 @@
   <!--Flash Message-->
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-  <div class="flash">
+  <div class="flash background-color-accent text-color-light">
     <ul>
       {% for message in messages %}
       <li><strong>{{message}}</strong></li>
@@ -17,7 +17,7 @@
   {% endwith %}
 
   <!--Type selection dropdown box for small viewports-->
-  <select class="types-dropdown">
+  <select class="types-dropdown border-color-base">
     {% if selected_type == 'All' %}
     <option value="All" selected>All</option>
     {% else %}
@@ -36,13 +36,13 @@
   <!--Type selection at the sidebar for wider viewports-->
   <sidebar class="types-section">
     <a class="type-link" href="{{url_for('showHome')}}">
-      <div class="type-text color-theme-2">
+      <div class="type-text text-color-main-light">
         All
       </div>
     </a>
     {% for type in types %}
     <a class="type-link" href="{{url_for('showType', type = type.name)}}">
-      <div class="type-text color-theme-2">
+      <div class="type-text text-color-main-light">
         {{type.name}}
       </div>
     </a>
@@ -55,7 +55,7 @@
     <!--Create a new pokemon button-->
     <div class="create-section">
       <a href="{{url_for('newPokemon')}}">
-        <div class="create-link">
+        <div class="create-link background-color-action text-color-light">
           Add a Pokemon
         </div>
       </a>
@@ -63,11 +63,11 @@
 
     <!--Pokemon in the list-->
     {% for pokemon in pokemon_list %}
-    <div class="tile">
+    <div class="tile border-color-base">
       <a href="{{url_for('showPokemon', id = pokemon.id)}}">
         <div class="tile-inner">
           <img class="tile-image" src="{{pokemon.image}}" />
-          <h3 class="tile-name accent-color-2">{{pokemon.name}}</h3>
+          <h3 class="tile-name text-color-action">{{pokemon.name}}</h3>
         </div>
       </a>
     </div>

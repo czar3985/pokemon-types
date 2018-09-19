@@ -6,7 +6,7 @@
   <!--Flash Message-->
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-  <div class="flash">
+  <div class="flash background-color-accent text-color-light">
     <ul>
       {% for message in messages %}
       <li><strong>{{message}}</strong></li>
@@ -16,7 +16,7 @@
   {% endif %}
   {% endwith %}
 
-  <h2 class="color-theme-1">{{pokemon.name}}</h2>
+  <h2 class="text-color-main">{{pokemon.name}}</h2>
 
   <div class="detail-image-container">
     <img class="details-image" src="{{pokemon.image}}" />
@@ -102,17 +102,17 @@
   </table>
   <br /><br />
   <a href="{{url_for('editPokemon', id = pokemon.id)}}">
-    <div class="edit-link">
+    <div class="edit-link background-color-action text-color-light">
       Edit
     </div>
   </a>
   <a href="{{url_for('deletePokemon', id = pokemon.id)}}">
-    <div class="delete-link accent-color-1">
+    <div class="delete-link background-color-accent text-color-light">
       Delete
     </div>
   </a>
   <a href="{{url_for('showHome')}}">
-    <div class="cancel-link accent-color-1">
+    <div class="cancel-link text-color-accent">
       Return to Home
     </div>
   </a>

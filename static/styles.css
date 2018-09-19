@@ -16,31 +16,6 @@ body {
   padding: 8px;
 }
 
-.base-color {
-  color: #B37D4E; /* FIELD */
-}
-
-.color-theme-1 {
-  color: #286DA8; /* SUMMER SKY */
-}
-
-.color-theme-2 {
-  color: #438496; /* BREEZE */
-}
-
-.accent-color-1 {
-  color: #CD5360; /* WARM PEACH */
-}
-
-.accent-color-2 {
-  color: #007849; /* IRISES */
-}
-
-main {
-  margin: 5px;
-  padding-top: 150px;
-}
-
 a {
   text-decoration: none;
 }
@@ -113,11 +88,9 @@ a {
 */
 
 .flash {
-  background-color: #CD5360; /* WARM PEACH */
   width: 100%;
   margin-bottom: 10px;
   padding: 1px;
-  color: white;
   font-size: 1.1em;
 }
 
@@ -137,6 +110,11 @@ a {
  *
 */
 
+main {
+  margin: 5px;
+  padding-top: 150px;
+}
+
 .main-content {
   display: flex;
   flex-wrap: wrap;
@@ -148,7 +126,7 @@ a {
   padding: 0.5em;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #B37D4E; /* FIELD */
+  border: 1px solid;
   border-radius: 4px;
 }
 
@@ -165,14 +143,9 @@ a {
 
 .tile {
   width: 100%;
-  border: 1px solid #B37D4E; /* FIELD */
+  border: 1px solid;
   border-radius: 4px;
   margin-bottom: 10px;
-}
-
-.type-highlight {
-  background-color: #438496; /* BREEZE */
-  color: white;
 }
 
 .type-text {
@@ -199,8 +172,6 @@ a {
   padding: 10px;
   border-radius: 4px;
   font-size: 1.25em;
-  background-color: #007849; /* IRISES */
-  color: white;
 }
 
 .tile:hover {
@@ -293,17 +264,6 @@ a {
   border-radius: 4px;
   font-size: 1.25em;
   margin-right: 10px;
-}
-
-.edit-link {
-  background-color: #007849; /* IRISES */
-  color: white;
-  display: inline;
-}
-
-.delete-link {
-  background-color: #CD5360; /* IRISES */
-  color: white;
   display: inline;
 }
 
@@ -315,7 +275,7 @@ a {
 */
 
 .input-group {
-  border: 1px solid #B37D4E; /* FIELD */
+  border: 1px solid;
   border-radius: 8px;
   margin-bottom: 10px;
   padding: 0.5em;
@@ -354,7 +314,7 @@ input[type=checkbox] {
 
 .cancel-link {
   padding: 10px;
-  border: 1px solid #CD5360; /* WARM PEACH */
+  border: 1px solid;
   border-radius: 4px;
   font-size: 1.25em;
   display: inline;
@@ -372,4 +332,54 @@ input[type=checkbox] {
     width: 900px;
     margin: auto;
   }
+}
+
+/*
+ * Colors
+ *    Theme:  #B37D4E // FIELD
+ *            #286DA8 // SUMMER SKY
+ *            #438496 // BREEZE
+ *            #CD5360 // WARM PEACH
+ *            #007849 // IRISES
+*/
+
+.text-color-main {
+  color: #286DA8; /* SUMMER SKY */
+}
+
+.text-color-main-light {
+  color: #438496; /* BREEZE */
+}
+
+.text-color-accent {
+  color: #CD5360; /* WARM PEACH */
+}
+
+.text-color-action {
+  color: #007849; /* IRISES */
+}
+
+.text-color-light {
+  color: white;
+}
+
+.background-color-accent {
+  background-color: #CD5360; /* WARM PEACH */
+}
+
+.background-color-action {
+  background-color: #007849; /* IRISES */
+}
+
+.border-color-base {
+  border-color: #B37D4E; /* FIELD */
+}
+
+.border-color-accent {
+  border-color: #CD5360; /* WARM PEACH */
+}
+
+.type-highlight {
+  background-color: #438496; /* BREEZE */
+  color: white;
 }

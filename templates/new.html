@@ -3,10 +3,10 @@
 {% block body %}
 <main>
 
-  <h2 class="color-theme-1">Add a pokemon</h2>
+  <h2 class="text-color-main">Add a pokemon</h2>
 
   <form action="{{url_for('newPokemon')}}" method='POST'>
-    <div class="input-group">
+    <div class="input-group border-color-base">
       <label for="id">Pokedex ID</label>
       <input type="number" id="id" name="id" min="1" max="806" required>
       <br />
@@ -53,10 +53,10 @@
 
     </div>
 
-    <input class="submit-link" type='submit' value='Create'>
+    <input class="submit-link background-color-action text-color-light" type='submit' value='Create'>
 
     <a href="{{url_for('showHome')}}">
-      <div class="cancel-link accent-color-1">
+      <div class="cancel-link border-color-accent text-color-accent">
         Cancel
       </div>
     </a>

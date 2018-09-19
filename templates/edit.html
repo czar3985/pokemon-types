@@ -3,11 +3,11 @@
 {% block body %}
 <main>
 
-  <h2 class="color-theme-1">Edit pokemon details</h2>
+  <h2 class="text-color-main">Edit pokemon details</h2>
   <h3>{{pokemon.name}}</h3>
 
   <form action="{{url_for('editPokemon', id = pokemon.id)}}" method='POST'>
-    <div class="input-group">
+    <div class="input-group border-color-base">
       <label for="id">Pokedex ID</label>
       <input type="number" id="id" name="id" min="1" max="806" value="{{pokemon.id}}" readonly>
       <br />
@@ -63,10 +63,10 @@
 
     </div>
 
-    <input class="submit-link" type='submit' value='Save'>
+    <input class="submit-link background-color-action text-color-light" type='submit' value='Save'>
 
     <a href="{{url_for('showHome')}}">
-      <div class="cancel-link accent-color-1">
+      <div class="cancel-link border-color-accent text-color-accent">
         Cancel
       </div>
     </a>
