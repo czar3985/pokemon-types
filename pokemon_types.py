@@ -344,7 +344,7 @@ def editPokemon(id):
         return redirect(url_for('showPokemon', id = pokemon.id))
 
     else:
-        evolutions_after = ', '.join(get_pokemon_name_list(pokemon.evolution_after_list, session))
+        evolutions_after = ', '.join(str(item) for item in pokemon.evolution_after_list)
         types = ', '.join(get_type_name_list(pokemon.type_list, session))
         weaknesses = ', '.join(get_type_name_list(pokemon.weakness_list, session))
         moves = ', '.join(get_move_name_list(pokemon.move_list, session))
