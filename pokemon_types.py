@@ -180,7 +180,7 @@ def showType(type):
     if type.lower() == 'all':
         return redirect(url_for('showHome'))
 
-    type_id = get_type_id(type, session)
+    type_id = get_type_id(string.capwords(type), session)
 
     pokemon_list = []
     if all_pokemon_list:
@@ -192,7 +192,7 @@ def showType(type):
     if not pokemon_list:
         flash('There are currently no %s type pokemon in the database.' % type)
 
-    return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = type)
+    return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
 
 
 @app.route('/pokemon/<int:id>')
