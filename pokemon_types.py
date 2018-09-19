@@ -176,6 +176,10 @@ def showHome():
 def showType(type):
     all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
     all_types = session.query(Type).order_by(asc(Type.name))
+
+    if type.lower() == 'all':
+        return redirect(url_for('showHome'))
+
     type_id = get_type_id(type, session)
 
     pokemon_list = []
