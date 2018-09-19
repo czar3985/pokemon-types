@@ -6,6 +6,10 @@
   <h2 class="text-color-main">Edit pokemon details</h2>
   <h3>{{pokemon.name}}</h3>
 
+  <div class="detail-image-container">
+    <img class="details-image" src="{{pokemon.image}}" />
+  </div>
+
   <form action="{{url_for('editPokemon', id = pokemon.id)}}" method='POST'>
     <div class="input-group border-color-base">
       <label for="id">Pokedex ID</label>
