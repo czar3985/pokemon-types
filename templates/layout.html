@@ -24,8 +24,23 @@
 
     <!--User info and sign-in options-->
     <section class="login-section">
-      <span class="login-options text-color-main-light">&#9660;</span>
-      <p class="login-link">Username</p>
+
+      {%if 'email' not in session %}
+      <p class="login-link">
+        <a class="accent-color-1" href="{{url_for('showLogin')}}">Sign in</a>
+      </p>
+      {% else %}
+      <div class="login-dropdown">
+        <button class="login-button">
+          Signed in as {{session['username']}}
+          <span class="text-color-main-light">&#9660;</span>
+        </button>
+        <div class="dropdown-content">
+          <a href="{{url_for('gdisconnect')}}">Sign out</a>
+        </div>
+      </div>
+      {% endif %}
+
     </section>
 
     <!--Banner showing page title-->
@@ -46,6 +61,9 @@
   </script>
   <!--Script for the page-->
   <script src="{{url_for('static', filename='main.js')}}"></script>
+
+  {% block login_script_block %}
+  {% endblock %}
 </body>
 
 </html>

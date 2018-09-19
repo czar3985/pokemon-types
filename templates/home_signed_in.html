@@ -1,0 +1,12 @@
+﻿{% extends "home.html" %}
+
+{% block create_block %}
+<!--Create a new pokemon button-->
+<div class="create-section">
+  <a href="{{url_for('newPokemon')}}">
+    <div class="create-link background-color-action text-color-light">
+      Add a Pokemon
+    </div>
+  </a>
+</div>
+{% endblock %}

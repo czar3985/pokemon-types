@@ -52,14 +52,8 @@
   <!--Pokemon tiles-->
   <section class="tiles-area">
 
-    <!--Create a new pokemon button-->
-    <div class="create-section">
-      <a href="{{url_for('newPokemon')}}">
-        <div class="create-link background-color-action text-color-light">
-          Add a Pokemon
-        </div>
-      </a>
-    </div>
+    {% block create_block %}
+    {% endblock %}
 
     <!--Pokemon in the list-->
     {% for pokemon in pokemon_list %}

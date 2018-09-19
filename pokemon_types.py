@@ -33,7 +33,10 @@ session = DBSession()
 
 @app.route('/pokemon/login/')
 def showLogin():
-	return "login page"
+	# Create anti-forgery state token
+    state = ''.join(random.choice(string.ascii_letters + string.digits) for x in xrange(32))
+    login_session['state'] = state
+    return render_template('login.html', CLIENT_ID=CLIENT_ID, STATE=state)
 
 
 def createUser(login_session):
@@ -136,27 +139,38 @@ def gconnect():
     login_session['user_id'] = userId
 
     output = '<br />'
-    flash("You are now logged in as %s" % login_session['username'])
+
+    if login_session['username'] != '':
+        flash("You are now logged in as %s" % login_session['username'])
+    else:
+        flash("You are now logged in as %s" % login_session['email'])
+
     return output
 
 
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get('access_token')
+
     if access_token is None:
         response = make_response(json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
+
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+
     h = httplib2.Http()
+
     result = h.request(url, 'GET')[0]
     if result['status'] == '200':
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
         del login_session['email']
+
     response = make_response(redirect(url_for('showHome')))
     response.headers['Content-Type'] = 'text/html'
+
     return response
 
 
@@ -169,7 +183,11 @@ def showHome():
         flash('There are currently no pokemon in the database.')
 
     types = session.query(Type).order_by(asc(Type.name))
-    return render_template('home.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
+
+    if 'email' in login_session:
+        return render_template('home_signed_in.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
+    else:
+        return render_template('home.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
 
 
 @app.route('/pokemon/<string:type>')
@@ -192,7 +210,10 @@ def showType(type):
     if not pokemon_list:
         flash('There are currently no %s type pokemon in the database.' % type)
 
-    return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
+    if 'email' in login_session:
+        return render_template('home_signed_in.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
+    else:
+        return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
 
 
 @app.route('/pokemon/<int:id>')
@@ -200,6 +221,10 @@ def showPokemon(id):
     pokemon = session.query(Pokemon).filter_by(id = id).one()
 
     pokemon_view_model = Pokemon_VM(pokemon, session)
+
+    if 'email' in login_session:
+        if login_session['user_id'] == pokemon.user_id:
+            return render_template('details_signed_in.html', pokemon = pokemon_view_model)
 
     return render_template('details.html', pokemon = pokemon_view_model)
 
@@ -280,6 +305,9 @@ def check_category(category_name):
 
 @app.route('/pokemon/new', methods=['GET','POST'])
 def newPokemon():
+    if 'email' not in login_session:
+        return redirect(url_for('showLogin'))
+
     if request.method == 'POST':
         if request.form.get('mythical'):
             is_mythical = True
@@ -305,7 +333,7 @@ def newPokemon():
                             weakness_list = parse_type_list(request.form['weakness']),
                             move_list = parse_move_list(request.form['move']),
                             category_id = check_category(request.form['category']),
-                            user_id = 1)
+                            user_id = login_session['user_id'])
 
         session.add(newPokemon)
         session.commit()
@@ -318,7 +346,15 @@ def newPokemon():
 
 @app.route('/pokemon/<int:id>/edit', methods=['GET','POST'])
 def editPokemon(id):
+    if 'email' not in login_session:
+        return redirect(url_for('showLogin'))
+
     pokemon = session.query(Pokemon).filter_by(id = id).one()
+
+    if pokemon.user_id != login_session['user_id']:
+        flash('You are not authorized to edit that pokemon entry. You may only edit a pokemon entry you added.')
+        return redirect(url_for('showHome'))
+
     if request.method == 'POST':
         pokemon.name = request.form['name']
         pokemon.description = request.form['description']
@@ -366,7 +402,14 @@ def editPokemon(id):
 
 @app.route('/pokemon/<int:id>/delete', methods=['GET','POST'])
 def deletePokemon(id):
+    if 'email' not in login_session:
+        return redirect(url_for('showLogin'))
+
     pokemon = session.query(Pokemon).filter_by(id = id).one()
+
+    if pokemon.user_id != login_session['user_id']:
+        flash('You are not authorized to delete that pokemon entry. You may only delete a pokemon entry you added.')
+        return redirect(url_for('showHome'))
 
     if request.method == 'POST':
         session.delete(pokemon)
