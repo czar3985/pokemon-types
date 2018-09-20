@@ -2,16 +2,32 @@
 
 The application keeps a record of all pokemon grouped by type.
 
+## Features
+
+- View all pokemon in the database or per type
+- View details of each pokemon
+- Edit pokemon details
+- Delete a pokemon
+- Add a pokemon
+- Log-in and Google authentication
+- User authorization checks
+- JSON API endpoints to acquire: 
+  - List and details of all pokemon
+  - All pokemon per type
+  - Details of a specific pokemon
+  - All categories
+  - All types
+  - All moves
+
+
 ## Prerequisites
 
 1. **python 2.7.x**
 2. **sqlalchemy**
 3. **sqlite3**
 4. **flask**
-5. _database_setup.py_
-6. _pokemon_types.py_
-7. _initial_entries.py_ 
-8. Google developers account and client secret
+5. Pokemon Types app files (scripts, htmls, static files) 
+6. Google developers account and client secret
 
 ## Usage
 
@@ -24,12 +40,54 @@ _initial_entries.py_ will populate the database
 
 _pokemon_types.py_ will run the web server 
 
-Navigate to port 8000, 
+### Routes
+
+Navigate to port 8000.
 
 Home page: http://localhost:8000/pokemon/
 
-Details page for each pokemon
-Ex: http://localhost:8000/pokemon/{pokedex_id}/
+Page for each pokemon type: http://localhost:8000/pokemon/{type}
+- Ex. http://localhost:8000/pokemon/fire
+
+Details page for each pokemon: http://localhost:8000/pokemon/{pokedex_id}/
+- Ex. http://localhost:8000/pokemon/1
+
+Page for creating a new pokemon entry in the database: 
+http://localhost:8000/pokemon/new
+
+Page for editing a pokemon entry: 
+http://localhost:8000/pokemon/{pokedex_id}/edit
+- Ex. http://localhost:8000/pokemon/1/edit
+
+Page for deleting a pokemon entry:
+http://localhost:8000/pokemon/{pokedex_id}/delete
+- Ex. http://localhost:8000/pokemon/1/delete
+
+Log-in page: http://localhost:8000/pokemon/login
+
+Cleanup page for removing unused database entries: 
+http://localhost:8000/pokemon/cleanup
+
+JSON API endpoint for all pokemon in the database:
+http://localhost:8000/pokemon/json
+
+JSON API endpoint for all pokemon with the specified type in the database:
+http://localhost:8000/pokemon/{type}/json
+- Ex. http://localhost:8000/pokemon/fire/json
+
+JSON API endpoint for pokemon with the specified id in the database:
+http://localhost:8000/pokemon/{pokedex_id}/json
+- Ex. http://localhost:8000/pokemon/1/json
+
+JSON API endpoint for all types in the database:
+http://localhost:8000/pokemon/type/json
+
+JSON API endpoint for all categories in the database:
+http://localhost:8000/pokemon/category/json
+
+JSON API endpoint for all moves in the database:
+http://localhost:8000/pokemon/move/json
+
 
 ### Create client secret for Google log-in
 
@@ -45,36 +103,52 @@ Follow the steps below to create _client_secrets.json_
 8. Set the authorized JavaScript origins - http://localhost:8000
 9. Authorized redirect URIs: http://localhost:8000/login and http://localhost:8000/gconnect
 10. Download the client secret JSON file and copy the contents to client_secrets.json in the same folder as the pokemon_types.py file
-11. In templates/login.html, replace the client id in the following line:
-```html
-data-clientid="REPLACE_THIS_WITH_THE_CLIENT_ID.apps.googleusercontent.com"
-```
+
 
 ## Database Structure
 
-Pokemon
+Pokemon table properties
+```python
+    id = Column(Integer, nullable=False, primary_key=True)
+    name = Column(String(50), nullable=False)
+    description = Column(String(250), nullable=False)
+    image = Column(String(250), nullable=False)
+    height = Column(Integer, nullable=False)
+    weight = Column(Float, nullable=False)
+    is_mythical = Column(Boolean, nullable=False)
+    is_legendary = Column(Boolean, nullable=False)
+    evolution_before = Column(Integer, nullable=True)
+    evolution_after_list = Column(PickleType, nullable=True)
+    type_list = Column(PickleType, nullable=False)
+    weakness_list = Column(PickleType, nullable=False)
+    move_list = Column(PickleType, nullable=False)
+    category_id = Column(Integer, ForeignKey('category.id'))
+    category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+```
 
-Types
+Types table properties
+```python
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+```
 
-Moves
+Moves table properties
+```python
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+```
 
-Categories
+Categories table properties
+```python
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+```
 
-Users
-
-## Features
-
-- View all pokemon in the database or per category
-- View details of each pokemon
-- Edit pokemon details
-- Delete a pokemon
-- Add a pokemon
-- Make use of JSON API endpoints for a list of all pokemon, all pokemon per category or details of a specific pokemon
-
-Ex. 
-
-http://localhost:8000/pokemon/JSON, 
-
-http://localhost:8000/pokemon/{category}/JSON, 
-
-http://localhost:8000/pokemon/{pokedex_id}/JSON
+Users table properties
+```python
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+```
