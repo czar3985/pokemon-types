@@ -129,7 +129,10 @@ def gconnect():
 
     data = answer.json()
 
-    login_session['username'] = data['name']
+    if 'name' in data:
+        login_session['username'] = data['name']
+    else:
+        login_session['username'] = data['email']
     login_session['email'] = data['email']
 
     # See if the user exists in the database or create a new entry
