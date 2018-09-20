@@ -16,24 +16,21 @@ body {
   padding: 8px;
 }
 
+main {
+  margin: 5px;
+  padding-top: 155px;
+}
+
 a {
   text-decoration: none;
 }
 
 /*
  *
- * Header
+ * Log-in
  *
  *
 */
-
-.fixed-top {
-  position: fixed;
-  max-width: 900px;
-  background-color: white;
-  top: 0;
-  padding: 24px 8px 20px 0;
-}
 
 .login-link {
   font-style: italic;
@@ -86,6 +83,21 @@ a {
   display: block;
 }
 
+/*
+ *
+ * Header
+ *
+ *
+*/
+
+.fixed-top {
+  position: fixed;
+  max-width: 900px;
+  background-color: white;
+  top: 0;
+  padding: 24px 8px 20px 0;
+}
+
 .banner {
   clear: both;
   height: 100px;
@@ -136,11 +148,6 @@ a {
  *
 */
 
-main {
-  margin: 5px;
-  padding-top: 155px;
-}
-
 .main-content {
   display: flex;
   flex-wrap: wrap;
@@ -159,19 +166,6 @@ main {
 .types-section {
   display: none;
   width: 100%;
-}
-
-.tiles-area {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.tile {
-  width: 100%;
-  border: 1px solid;
-  border-radius: 4px;
-  margin-bottom: 10px;
 }
 
 .type-text {
@@ -193,15 +187,17 @@ main {
   float: left;
 }
 
-.create-link,
-.submit-link {
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 1.25em;
+.tiles-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-.submit-link:hover {
-  cursor: pointer;
+.tile {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 .tile:hover {
@@ -247,15 +243,6 @@ main {
   padding: 8px;
 }
 
-.edit-link,
-.delete-link {
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 1.25em;
-  margin-right: 10px;
-  display: inline;
-}
-
 .details-user-info {
   font-style: italic;
   font-size: 0.75em;
@@ -277,6 +264,7 @@ main {
 *
 *
 */
+
 .input-group {
   border: 1px solid;
   border-radius: 8px;
@@ -315,9 +303,27 @@ input[type=checkbox] {
   font-weight: bold;
 }
 
+/*
+*
+* Buttons and Links
+*
+*
+*/
+
+.submit-link:hover {
+  cursor: pointer;
+}
+
 .cancel-link {
-  padding: 10px;
   border: 1px solid;
+}
+
+.cancel-link,
+.create-link,
+.submit-link,
+.edit-link,
+.delete-link {
+  padding: 10px;
   border-radius: 4px;
   font-size: 1.25em;
   display: inline-block;
