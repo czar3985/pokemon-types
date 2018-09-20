@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<main>
+  <h2 class="text-color-main">Cleanup of Unused Category and Move Entries</h2>
+
+  <p>If a category or move is not associated with any pokemon entry, they may be deleted from the database from this page.</p>
+
+  {% if categories_to_delete %}
+  <h3 class="text-color-main-light">Categories to be deleted</h3>
+  {% for item in categories_to_delete %}
+  <p>{{item}}</p>
+  {% endfor %}
+  {% endif %}
+
+  {% if move_names_to_delete %}
+  <h3 class="text-color-main-light">Moves to be deleted</h3>
+  {% for item in move_names_to_delete %}
+  <p>{{item}}</p>
+  {% endfor %}
+  {% endif %}
+
+  {% if categories_to_delete or move_names_to_delete %}
+  <h3>Are you sure you want to delete these entries?</h3>
+  <form action="{{url_for('cleanup')}}" method='POST'>
+    <input class="submit-link background-color-accent text-color-light" type='submit' value='Delete'>
+  </form>
+  {% else %}
+  <h3>There are no cleanups necessary at this time.</h3>
+  {% endif %}
+
+  <br />
+  <a href="{{url_for('showHome')}}">
+    <div class="cancel-link border-color-accent text-color-accent">
+      Return to Home
+    </div>
+  </a>
+
+</main>
+{% endblock %}

@@ -13,7 +13,7 @@ import json
 from flask import make_response
 import requests
 
-from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id, get_pokemon_name_list, get_type_name_list, get_move_name_list
+from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id, get_pokemon_name_list, get_type_name_list, get_move_name_list, get_move_name
 
 app = Flask(__name__)
 
@@ -419,6 +419,57 @@ def deletePokemon(id):
 
     else:
         return render_template('delete.html', pokemon = pokemon)
+
+
+@app.route('/pokemon/cleanup', methods=['GET','POST'])
+def cleanup():
+    all_pokemon = session.query(Pokemon).filter_by().all()
+
+    # Get all categories (names) and moves (ids) in the database
+    all_category_names = []
+    all_categories = session.query(Category).filter_by().all()
+    for category in all_categories:
+        all_category_names.append(category.name)
+
+    all_move_ids = []
+    all_moves = session.query(Move).filter_by().all()
+    for move in all_moves:
+        all_move_ids.append(move.id)
+
+    # Get categories and moves associated with pokemon entries
+    categories_used = []        # List of names
+    moves_used = []             # List of ids
+    for pokemon in all_pokemon:
+        if pokemon.category.name not in categories_used:
+            categories_used.append(pokemon.category.name)
+        for move_id in list(pokemon.move_list):
+            if move_id not in moves_used:
+                moves_used.append(move_id)
+
+    # Get the categories (names) and moves (names) unused and can be deleted
+    categories_to_delete = list(set(all_category_names).difference(categories_used))
+
+    moves_to_delete = list(set(all_move_ids).difference(moves_used))
+    move_names_to_delete = []
+    for id in moves_to_delete:
+        name = get_move_name(id, session)
+        move_names_to_delete.append(name)
+
+    if request.method == 'POST':
+        for item in categories_to_delete:
+            category = session.query(Category).filter_by(name = item).first()
+            session.delete(category)
+
+        for item in move_names_to_delete:
+            move = session.query(Move).filter_by(name = item).first()
+            session.delete(move)
+
+        session.commit()
+        flash('Unused categories and moves have been deleted')
+        return redirect(url_for('showHome'))
+
+    else:
+        return render_template('cleanup.html', categories_to_delete= categories_to_delete, move_names_to_delete = move_names_to_delete)
 
 
 @app.route('/pokemon/json')

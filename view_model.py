@@ -92,6 +92,16 @@ def get_move_id(name, session):
         return None
 
 
+def get_move_name(id, session):
+    """Return the move name given the move id"""
+    move = session.query(Move).filter_by(id = id).first()
+
+    if move:
+        return move.name
+    else:
+        return ''
+
+
 def get_move_name_list(move_id_list, session):
     """Return a list of move names given the list of move IDs"""
     move_list = []
