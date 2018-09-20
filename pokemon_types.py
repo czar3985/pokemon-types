@@ -474,17 +474,58 @@ def cleanup():
 
 @app.route('/pokemon/json')
 def showAllJson():
-    return "List of pokemon in json"
+    pokemon_list = session.query(Pokemon).all()
+    return jsonify(Pokemon = [(Pokemon_VM(pokemon, session)).serialize for pokemon in pokemon_list])
 
 
 @app.route('/pokemon/<string:type>/json')
 def showTypeJson(type):
-    return "Shows all pokemon of selected type %s in json" % type
+    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
+    all_types = session.query(Type).order_by(asc(Type.name))
+    pokemon_list = []
+
+    if type.lower() == 'all':
+        pokemon_list = all_pokemon_list
+    else:
+        type_id = get_type_id(string.capwords(type), session)
+
+        if all_pokemon_list:
+            for pokemon in all_pokemon_list:
+                type_list = list(pokemon.type_list)
+                if type_id in type_list:
+                    pokemon_list.append(pokemon)
+
+    return jsonify(Pokemon = [(Pokemon_VM(pokemon, session)).serialize for pokemon in pokemon_list])
 
 
 @app.route('/pokemon/<int:id>/json')
 def showPokemonJson(id):
-    return "Details for pokemon with id: %s in json" % id
+    pokemon = session.query(Pokemon).filter_by(id = id).first()
+
+    if pokemon:
+        pokemon_view_model = Pokemon_VM(pokemon, session)
+
+        return jsonify(Pokemon = [pokemon_view_model.serialize])
+    else:
+        return jsonify(Pokemon = [])
+
+
+@app.route('/pokemon/category/json')
+def showCategoriesJson():
+    categories = session.query(Category).all()
+    return jsonify(Categories = [category.serialize for category in categories])
+
+
+@app.route('/pokemon/type/json')
+def showTypesJson():
+    types = session.query(Type).all()
+    return jsonify(Types = [type.serialize for type in types])
+
+
+@app.route('/pokemon/move/json')
+def showMovesJson():
+    moves = session.query(Move).all()
+    return jsonify(Moves = [move.serialize for move in moves])
 
 
 if __name__ == '__main__':

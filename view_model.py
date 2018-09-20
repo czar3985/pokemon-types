@@ -154,3 +154,21 @@ class Pokemon_VM():
         else:
             self.user = pokemon.user.name
 
+    @property
+    def serialize(self):
+        return {
+            'name': self.name,
+            'pokedex_id': self.id,
+            'description': self.description,
+            'image': self.image,
+            'height': self.height,
+            'weight': self.weight,
+            'is_mythical': self.is_mythical,
+            'is_legendary': self.is_legendary,
+            'evolves_from': self.evolution_before,
+            'evolves_to': ', '.join(self.evolutions_after),
+            'types': ', '.join(self.types),
+            'weaknesses': ', '.join(self.weaknesses),
+            'moves': ', '.join(self.moves),
+            'category': self.category
+            }

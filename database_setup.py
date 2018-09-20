@@ -80,20 +80,6 @@ class Pokemon(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
-    @property
-    def serialize(self):
-        return {
-            'name': self.name,
-            'pokedex_id': self.id,
-            'description': self.description,
-            'image': self.image,
-            'height': self.height,
-            'weight': self.weight,
-            'is_mythical': self.is_mythical,
-            'is_legendary': self.is_legendary,
-            'category': self.category_id
-            }
-
 
 engine = create_engine('sqlite:///pokemon.db')
 Base.metadata.create_all(engine)
