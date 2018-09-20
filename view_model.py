@@ -1,3 +1,5 @@
+# VIEW_MODEL.PY provides helper functions and classes for the Pokemon Types app
+
 from database_setup import Pokemon, Type, Move, Category
 
 #
@@ -9,6 +11,7 @@ def get_height_for_display(height_num):
         Args: height_num (int): Height in inches
         Return value: height_string (str): Formatted as feet'inches"
     """
+
     height_string = str(height_num / 12) + '\'' + str(height_num % 12) + '\"'
 
     return height_string
@@ -19,6 +22,7 @@ def get_height_for_display(height_num):
 #
 def get_pokemon_name(id, session):
     """Return the pokemon name given the pokemon ID"""
+
     if id:
         pokemon = session.query(Pokemon).filter_by(id = id).first()
 
@@ -32,6 +36,7 @@ def get_pokemon_name(id, session):
 
 def get_pokemon_id(name, session):
     """Return the pokemon id given the pokemon name"""
+
     pokemon = session.query(Pokemon).filter_by(name = name).first()
 
     if pokemon:
@@ -42,6 +47,7 @@ def get_pokemon_id(name, session):
 
 def get_pokemon_name_list(pokemon_id_list, session):
     """Return a list of pokemon names given the list of pokemon IDs"""
+
     pokemon_list = []
 
     if pokemon_id_list:
@@ -57,6 +63,7 @@ def get_pokemon_name_list(pokemon_id_list, session):
 #
 def get_type_id(name, session):
     """Return the type id given the type name"""
+
     type = session.query(Type).filter_by(name = name).first()
 
     if type:
@@ -67,6 +74,7 @@ def get_type_id(name, session):
 
 def get_type_name_list(type_id_list, session):
     """Return a list of type names given the list of type IDs"""
+
     type_list = []
 
     if type_id_list:
@@ -84,6 +92,7 @@ def get_type_name_list(type_id_list, session):
 #
 def get_move_id(name, session):
     """Return the move id given the move name"""
+
     move = session.query(Move).filter_by(name = name).first()
 
     if move:
@@ -94,6 +103,7 @@ def get_move_id(name, session):
 
 def get_move_name(id, session):
     """Return the move name given the move id"""
+
     move = session.query(Move).filter_by(id = id).first()
 
     if move:
@@ -104,6 +114,7 @@ def get_move_name(id, session):
 
 def get_move_name_list(move_id_list, session):
     """Return a list of move names given the list of move IDs"""
+
     move_list = []
 
     if move_id_list:
@@ -121,6 +132,7 @@ def get_move_name_list(move_id_list, session):
 #
 def get_category_id(name, session):
     """Return the category id given the category name"""
+
     category = session.query(Category).filter_by(name = name).first()
 
     if category:
@@ -130,11 +142,27 @@ def get_category_id(name, session):
 
 
 #
+# USER FUNCTIONS
+#
+def get_user_id(email, session):
+    """Return the user ID given the email"""
+
+    try:
+        user = session.query(User).filter_by(email = email).one()
+        return user.id
+    except:
+        return None
+
+
+#
 # DATA VIEW MODEL
 #
 class Pokemon_VM():
+    """Displays Pokemon details in readable format"""
+
     def __init__(self, pokemon, session):
         """Map the columns from the Pokemon table to properties for display to the page"""
+
         self.id = pokemon.id
         self.name = pokemon.name
         self.description = pokemon.description
@@ -156,6 +184,8 @@ class Pokemon_VM():
 
     @property
     def serialize(self):
+        """For JSON API endpoint showing the pokemon entries in the database"""
+
         return {
             'name': self.name,
             'pokedex_id': self.id,

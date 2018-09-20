@@ -1,15 +1,19 @@
-import sys
+# DATABASE_SETUP.PY creates the database and the tables to be used
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean, PickleType
+import sys
+from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean
+from sqlalchemy import create_engine, PickleType
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
+
 
 Base = declarative_base()
 
 
-
+# Description of the table and their columns
 class User(Base):
+    """User table"""
+
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
@@ -18,6 +22,8 @@ class User(Base):
 
 
 class Category(Base):
+    """Pokemon categories table"""
+
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
@@ -25,6 +31,8 @@ class Category(Base):
 
     @property
     def serialize(self):
+        """For JSON API endpoint showing category entries in the database"""
+
         return {
             'name': self.name,
             'id': self.id
@@ -32,6 +40,8 @@ class Category(Base):
 
 
 class Type(Base):
+    """Pokemon types table"""
+
     __tablename__ = 'type'
 
     id = Column(Integer, primary_key=True)
@@ -39,6 +49,8 @@ class Type(Base):
 
     @property
     def serialize(self):
+        """For JSON API endpoint showing the type entries in the database"""
+
         return {
             'name': self.name,
             'id': self.id
@@ -46,6 +58,8 @@ class Type(Base):
 
 
 class Move(Base):
+    """Pokemon moves table"""
+
     __tablename__ = 'move'
 
     id = Column(Integer, primary_key=True)
@@ -53,6 +67,8 @@ class Move(Base):
 
     @property
     def serialize(self):
+        """For JSON API endpoint showing the move entries in the database"""
+
         return {
             'name': self.name,
             'id': self.id
@@ -60,6 +76,8 @@ class Move(Base):
 
 
 class Pokemon(Base):
+    """Pokemon entries table"""
+
     __tablename__ = 'pokemon'
 
     id = Column(Integer, nullable = False, primary_key = True)
@@ -81,5 +99,6 @@ class Pokemon(Base):
     user = relationship(User)
 
 
+# Create the database
 engine = create_engine('sqlite:///pokemon.db')
 Base.metadata.create_all(engine)
