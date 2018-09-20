@@ -1,3 +1,9 @@
+<!-- DETAILS.HTML shows all the details for the selected pokemon. When the
+     creator is not logged-in, the options for editing and deleting are not
+     available. Accessible through http://localhost:8000/pokemon/<id> or by
+     clicking the pokemon's tile from the Home Page.
+  -->
+
 {% extends "layout.html" %}
 
 {% block body %}
@@ -36,6 +42,7 @@
       <td>
         {% for item in pokemon.types %}
         {{item}}
+
         {% if loop.index != pokemon.types|length %}
         <span>,</span>
         {% endif %}
@@ -56,6 +63,7 @@
     </tr>
     <tr>
       <td class="details-label" rowspan="2">Evolutions</td>
+
       {% if pokemon.evolution_before %}
       <td>Evolves from {{pokemon.evolution_before}}</td>
       {% else %}
@@ -66,12 +74,14 @@
       <td>
         {% if pokemon.evolutions_after %}
         Evolves to
+
         {% for item in pokemon.evolutions_after %}
         {{item}}
         {% if loop.index != pokemon.evolutions_after|length %}
         <span>,</span>
         {% endif %}
         {% endfor %}
+
         {% else %}
         Does not evolve to any pokemon
         {% endif %}
@@ -82,6 +92,7 @@
       <td>
         {% for item in pokemon.weaknesses %}
         {{item}}
+
         {% if loop.index != pokemon.weaknesses|length %}
         <span>,</span>
         {% endif %}
@@ -93,6 +104,7 @@
       <td>
         {% for item in pokemon.moves %}
         {{item}}
+
         {% if loop.index != pokemon.moves|length %}
         <span>,</span>
         {% endif %}
@@ -122,9 +134,11 @@
   </table>
   <p class="details-user-info">Added by {{pokemon.user}}</p>
   <br />
+
   <div class="details-buttons">
     {% block edit_delete_block %}
     {% endblock %}
+
     <a href="{{url_for('showHome')}}">
       <div class="cancel-link text-color-accent">
         Return to Home

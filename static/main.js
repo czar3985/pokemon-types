@@ -4,7 +4,7 @@ $(function () {
     $(`.type-text:contains("${selected_type}")`).addClass('type-highlight');
 });
 
-// Redirected to the page of the pokemon type selected from the dropdown
+// Redirect to the page of the pokemon type selected from the dropdown
 $('.types-dropdown').change(function () {
     window.location.href = '/pokemon/' + $(this).val();
 });

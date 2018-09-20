@@ -1,3 +1,9 @@
+<!-- DETAILS_SIGNED_IN.HTML is same as DETAILS.HTML but with the creator
+     of the pokemon entry logged in, the buttons for editing and deleting can
+     be used. Accessible through http://localhost:8000/pokemon/<id> or by
+     clicking the pokemon's tile from the Home Page.
+  -->
+
 {% extends "details.html" %}
 
 {% block edit_delete_block %}
@@ -6,6 +12,7 @@
     Edit
   </div>
 </a>
+
 <a href="{{url_for('deletePokemon', id = pokemon.id)}}">
   <div class="delete-link background-color-accent text-color-light">
     Delete
