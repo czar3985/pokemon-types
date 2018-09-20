@@ -312,6 +312,12 @@ def newPokemon():
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
+        # Check if pokemon exists with the same ID
+        pokemon = session.query(Pokemon).filter_by(id = request.form['id']).first()
+        if pokemon:
+            flash('A pokemon with the same ID already exists')
+            return redirect(url_for('showHome'))
+
         if request.form.get('mythical'):
             is_mythical = True
         else:
