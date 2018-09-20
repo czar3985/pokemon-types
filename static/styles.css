@@ -106,20 +106,6 @@ a {
   top: 20px;
 }
 
-@media screen and (min-width: 500px) {
-  .banner-text {
-    font-size: 2.75em;
-    top: 3px;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .banner-text {
-    font-size: 3.25em;
-    top: -8px;
-  }
-}
-
 /*
  *
  * Flash Message
@@ -234,47 +220,6 @@ main {
   font-size: 1.25em;
 }
 
-@media screen and (min-width: 350px) {
-  .tile {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media screen and (min-width: 400px) {
-  .tile {
-    width: 48%;
-    margin-left: 5px;
-    margin-right: 0;
-  }
-}
-
-@media screen and (min-width: 500px) {
-  .types-section {
-    display: block;
-    width: 20%;
-  }
-
-  .types-dropdown {
-    display: none;
-  }
-
-  .create-link {
-    float: right;
-  }
-
-  .tiles-area {
-    width: 80%;
-  }
-}
-
-@media screen and (min-width: 650px) {
-  .tile {
-    width: 32%;
-  }
-}
-
 /*
 *
 * Details Page
@@ -324,12 +269,6 @@ main {
 
 .details-content .cancel-link {
   margin-top: 20px;
-}
-
-@media screen and (min-width: 370px) {
-  .details-content .cancel-link {
-    margin-top: 0;
-  }
 }
 
 /*
@@ -391,6 +330,66 @@ input[type=checkbox] {
 *
 *
 */
+
+@media screen and (min-width: 350px) {
+  .tile {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 370px) {
+  .details-content .cancel-link {
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .tile {
+    width: 48%;
+    margin-left: 5px;
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .banner-text {
+    font-size: 2.75em;
+    top: 3px;
+  }
+
+  .types-section {
+    display: block;
+    width: 20%;
+  }
+
+  .types-dropdown {
+    display: none;
+  }
+
+  .create-link {
+    float: right;
+  }
+
+  .tiles-area {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .tile {
+    width: 32%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .banner-text {
+    font-size: 3.25em;
+    top: -8px;
+  }
+}
+
 @media screen and (min-width: 900px) {
   body {
     width: 900px;
