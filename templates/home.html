@@ -1,4 +1,10 @@
-﻿{% extends "layout.html" %}
+﻿<!-- HOME.HTML is the home page that shows all the pokemon in the database
+     or pokemon in the specified type.
+     Accessible through http://localhost:8000/ or http://localhost:8000/pokemon
+     or through Return to Home buttons from other pages.
+  -->
+
+{% extends "layout.html" %}
 
 {% block body %}
 <main class="main-content">
@@ -25,11 +31,13 @@
     {% endif %}
 
     {% for type in types %}
+
     {% if selected_type == type.name %}
     <option value="{{type.name}}" selected>{{type.name}}</option>
     {% else %}
     <option value="{{type.name}}">{{type.name}}</option>
     {% endif %}
+
     {% endfor %}
   </select>
 
@@ -40,6 +48,7 @@
         All
       </div>
     </a>
+
     {% for type in types %}
     <a class="type-link" href="{{url_for('showType', type = type.name)}}">
       <div class="type-text text-color-main-light">
@@ -66,6 +75,8 @@
       </a>
     </div>
     {% endfor %}
+
   </section>
+
 </main>
 {% endblock %}

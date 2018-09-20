@@ -10,12 +10,15 @@
 <main>
 
   <h2 class="text-color-main">Edit pokemon details</h2>
+
+  <!--Pokemon name and image-->
   <h3 class="text-color-main-light">{{pokemon.name}}</h3>
 
   <div class="detail-image-container">
     <img class="details-image" src="{{pokemon.image}}" />
   </div>
 
+  <!--Form showing current values that can be edited-->
   <form action="{{url_for('editPokemon', id = pokemon.id)}}" method='POST'>
     <div class="input-group border-color-base">
       <label for="id">Pokedex ID</label>
@@ -73,6 +76,7 @@
 
     </div>
 
+    <!--Options available for the Edit page-->
     <input class="submit-link background-color-action text-color-light" type='submit' value='Save'>
 
     <a href="{{url_for('showPokemon', id = pokemon.id)}}">

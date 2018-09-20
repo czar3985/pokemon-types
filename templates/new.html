@@ -1,3 +1,9 @@
+<!-- NEW.HTML is where a user may add a new pokemon and its required details.
+     Only a logged-in user may create a new entry.
+     Accessible through http://localhost:8000/pokemon/new or through the
+     Add a New Pokemon button in the Home Page.
+  -->
+
 {% extends "layout.html" %}
 
 {% block body %}
@@ -5,7 +11,8 @@
 
   <h2 class="text-color-main">Add a pokemon</h2>
 
-  <form action="{{url_for('newPokemon')}}" method='POST'>
+  <!--Form for adding all the Pokemon details-->
+  <form action="{{url_for('newPokemon')}}" method="POST">
     <div class="input-group border-color-base">
       <label for="id">Pokedex ID</label>
       <input type="number" id="id" name="id" min="1" max="806" required>
@@ -53,13 +60,16 @@
 
     </div>
 
-    <input class="submit-link background-color-action text-color-light" type='submit' value='Create'>
+    <!--Actions available for the New Page-->
+    <input class="submit-link background-color-action text-color-light" type="submit" value="Create">
 
     <a href="{{url_for('showHome')}}">
       <div class="cancel-link border-color-accent text-color-accent">
         Cancel
       </div>
     </a>
+
   </form>
+
 </main>
 {% endblock %}

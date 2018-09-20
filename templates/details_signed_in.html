@@ -7,12 +7,14 @@
 {% extends "details.html" %}
 
 {% block edit_delete_block %}
+<!--Edit button-->
 <a href="{{url_for('editPokemon', id = pokemon.id)}}">
   <div class="edit-link background-color-action text-color-light">
     Edit
   </div>
 </a>
 
+<!--Delete button-->
 <a href="{{url_for('deletePokemon', id = pokemon.id)}}">
   <div class="delete-link background-color-accent text-color-light">
     Delete

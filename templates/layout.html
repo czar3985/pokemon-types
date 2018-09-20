@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿<!-- LAYOUT.HTML is the common page layout used in all pages in the
+     application.
+  -->
+
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -12,7 +16,7 @@
   <meta name="keywords" content="pokemon" />
 
   <!-- Styling for the page -->
-  <link rel=stylesheet type=text/css href="{{url_for('static', filename='styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
 
   {% block head %}
   {% endblock %}
@@ -59,6 +63,7 @@
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous">
   </script>
+
   <!--Script for the page-->
   <script src="{{url_for('static', filename='main.js')}}"></script>
 

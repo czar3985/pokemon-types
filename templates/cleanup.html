@@ -16,6 +16,7 @@
 
   <p>If a category or move is not associated with any pokemon entry, they may be deleted from the database from this page.</p>
 
+  <!--Categories that can be deleted-->
   {% if categories_to_delete %}
   <h3 class="text-color-main-light">Categories to be deleted</h3>
   {% for item in categories_to_delete %}
@@ -23,6 +24,7 @@
   {% endfor %}
   {% endif %}
 
+  <!--Moves that can be deleted-->
   {% if move_names_to_delete %}
   <h3 class="text-color-main-light">Moves to be deleted</h3>
   {% for item in move_names_to_delete %}
@@ -30,6 +32,7 @@
   {% endfor %}
   {% endif %}
 
+  <!--Confirmation button to delete-->
   {% if categories_to_delete or move_names_to_delete %}
   <h3>Are you sure you want to delete these entries?</h3>
   <form action="{{url_for('cleanup')}}" method="POST">
@@ -39,6 +42,7 @@
   <h3>There are no cleanups necessary at this time.</h3>
   {% endif %}
 
+  <!--Return to Home link-->
   <br />
   <a href="{{url_for('showHome')}}">
     <div class="cancel-link border-color-accent text-color-accent">

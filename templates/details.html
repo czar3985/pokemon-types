@@ -22,12 +22,14 @@
   {% endif %}
   {% endwith %}
 
+  <!--Pokemon name and image-->
   <h2 class="text-color-main">{{pokemon.name}}</h2>
 
   <div class="detail-image-container">
     <img class="details-image" src="{{pokemon.image}}" />
   </div>
 
+  <!--Pokemon details in a table-->
   <table class="details-table">
     <tr>
       <td class="details-label">Pokedex ID</td>
@@ -132,9 +134,12 @@
       </td>
     </tr>
   </table>
+
+  <!--User who added the pokemon to the database-->
   <p class="details-user-info">Added by {{pokemon.user}}</p>
   <br />
 
+  <!--Options available in the details page-->
   <div class="details-buttons">
     {% block edit_delete_block %}
     {% endblock %}
