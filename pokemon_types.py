@@ -49,7 +49,7 @@ def create_user(login_session):
     session.commit()
 
     # Return the created id after committing to the database
-    user = session.query(User).filter_by(email=login_session['email']).one()
+    user = session.query(User).filter_by(email=login_session['email']).first()
     return user.id
 
 
@@ -557,7 +557,7 @@ def gconnect():
     login_session['email'] = data['email']
 
     # See if the user exists in the database or create a new entry
-    userId = get_user_id(login_session['email'])
+    userId = get_user_id(login_session['email'], session)
     if userId is None:
         userId = create_user(login_session)
     login_session['user_id'] = userId

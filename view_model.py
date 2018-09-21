@@ -149,7 +149,7 @@ def get_user_id(email, session):
     """Return the user ID given the email"""
 
     try:
-        user = session.query(User).filter_by(email=email).one()
+        user = session.query(User).filter_by(email=email).first()
         return user.id
     except:
         return None
