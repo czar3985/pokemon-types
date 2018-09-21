@@ -7,16 +7,32 @@ import string
 import httplib2
 import json
 import requests
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask import session as login_session, make_response, jsonify
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from database_setup import Base, engine, Pokemon, User, Category, Type, Move
-from view_model import Pokemon_VM, get_type_id, get_category_id, get_move_id
-from view_model import get_pokemon_name_list, get_type_name_list
-from view_model import get_move_name_list, get_move_name, get_user_id
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    session as login_session,
+    make_response,
+    jsonify
+    )
+from view_model import (
+    Pokemon_VM,
+    get_type_id,
+    get_category_id,
+    get_move_id,
+    get_pokemon_name_list,
+    get_type_name_list,
+    get_move_name_list,
+    get_move_name, get_user_id
+    )
 
 
 app = Flask(__name__)
