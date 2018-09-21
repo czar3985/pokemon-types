@@ -196,21 +196,25 @@ bulbasur_move_id_list.append(get_move_id('Seed Bomb', session))
 bulbasaur_evolution_id_list = []
 bulbasaur_evolution_id_list.append(2)
 
-bulbasaur = Pokemon(id = 1,
-                    name = 'Bulbasaur',
-                    description = 'Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun\'s rays, the seed grows progressively larger.',
-                    image = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-                    height = 28,
-                    weight = 15.2,
-                    is_mythical = False,
-                    is_legendary = False,
-                    evolution_before = None,
-                    evolution_after_list = bulbasaur_evolution_id_list,
-                    type_list = bulbasaur_type_id_list,
-                    weakness_list = bulbasaur_weakness_id_list,
-                    move_list = bulbasur_move_id_list,
-                    category = category_seed,
-                    user = user_kanto_admin)
+bulbasaur = Pokemon(id=1,
+                    name='Bulbasaur',
+                    description=('Bulbasaur can be seen napping in bright '
+                                 'sunlight. There is a seed on its back. By '
+                                 'soaking up the sun\'s rays, the seed grows '
+                                 'progressively larger.'),
+                    image=('https://assets.pokemon.com/assets/cms2/img/'
+                           'pokedex/full/001.png'),
+                    height=28,
+                    weight=15.2,
+                    is_mythical=False,
+                    is_legendary=False,
+                    evolution_before=None,
+                    evolution_after_list=bulbasaur_evolution_id_list,
+                    type_list=bulbasaur_type_id_list,
+                    weakness_list=bulbasaur_weakness_id_list,
+                    move_list=bulbasur_move_id_list,
+                    category=category_seed,
+                    user=user_kanto_admin)
 
 # CHARMANDER
 charmander_type_id_list = []
@@ -238,21 +242,26 @@ charmander_move_id_list.append(get_move_id('Inferno', session))
 charmander_evolution_id_list = []
 charmander_evolution_id_list.append(5)
 
-charmander = Pokemon(id = 4,
-                    name = 'Charmander',
-                    description = 'The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is enjoying itself. If the Pokemon becomes enraged, the flame burns fiercely.',
-                    image = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-                    height = 24,
-                    weight = 15.2,
-                    is_mythical = False,
-                    is_legendary = False,
-                    evolution_before = None,
-                    evolution_after_list = charmander_evolution_id_list,
-                    type_list = charmander_type_id_list,
-                    weakness_list = charmander_weakness_id_list,
-                    move_list = charmander_move_id_list,
-                    category = category_lizard,
-                    user = user_kanto_admin)
+charmander = Pokemon(id=4,
+                     name='Charmander',
+                     description=('The flame that burns at the tip of its '
+                                  'tail is an indication of its emotions. The '
+                                  'flame wavers when Charmander is enjoying '
+                                  'itself. If the Pokemon becomes enraged, '
+                                  'the flame burns fiercely.'),
+                     image=('https://assets.pokemon.com/assets/cms2/img/'
+                            'pokedex/full/004.png'),
+                     height=24,
+                     weight=15.2,
+                     is_mythical=False,
+                     is_legendary=False,
+                     evolution_before=None,
+                     evolution_after_list=charmander_evolution_id_list,
+                     type_list=charmander_type_id_list,
+                     weakness_list=charmander_weakness_id_list,
+                     move_list=charmander_move_id_list,
+                     category=category_lizard,
+                     user=user_kanto_admin)
 
 # SQUIRTLE
 squirtle_type_id_list = []
@@ -281,21 +290,26 @@ squirtle_move_id_list.append(get_move_id('Hydro Pump', session))
 squirtle_evolution_id_list = []
 squirtle_evolution_id_list.append(8)
 
-squirtle = Pokemon(id = 7,
-                    name = 'Squirtle',
-                    description = 'Squirtle\'s shell is not merely used for protection. The shell\'s rounded shape and the grooves on its surface help minimize resistance in water, enabling this Pokemon to swim at high speeds.',
-                    image = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-                    height = 20,
-                    weight = 19.8,
-                    is_mythical = False,
-                    is_legendary = False,
-                    evolution_before = None,
-                    evolution_after_list = squirtle_evolution_id_list,
-                    type_list = squirtle_type_id_list,
-                    weakness_list = squirtle_weakness_id_list,
-                    move_list = squirtle_move_id_list,
-                    category = category_tiny_turtle,
-                    user = user_kanto_admin)
+squirtle = Pokemon(id=7,
+                   name='Squirtle',
+                   description=('Squirtle\'s shell is not merely used for '
+                                'protection. The shell\'s rounded shape and '
+                                'the grooves on its surface help minimize '
+                                'resistance in water, enabling this Pokemon '
+                                'to swim at high speeds.'),
+                   image=('https://assets.pokemon.com/assets/cms2/img/'
+                          'pokedex/full/007.png'),
+                   height=20,
+                   weight=19.8,
+                   is_mythical=False,
+                   is_legendary=False,
+                   evolution_before=None,
+                   evolution_after_list=squirtle_evolution_id_list,
+                   type_list=squirtle_type_id_list,
+                   weakness_list=squirtle_weakness_id_list,
+                   move_list=squirtle_move_id_list,
+                   category=category_tiny_turtle,
+                   user=user_kanto_admin)
 session.add(bulbasaur)
 session.add(charmander)
 session.add(squirtle)

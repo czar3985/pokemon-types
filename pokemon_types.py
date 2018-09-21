@@ -2,7 +2,11 @@
 # and view pokemon in the database. It includes sign-in and user authentication
 # features. It also features JSON API endpoints for acquiring data.
 
-import random, string, httplib2, json, requests
+import random
+import string
+import httplib2
+import json
+import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session as login_session, make_response, jsonify
 from sqlalchemy import create_engine, asc
@@ -24,10 +28,11 @@ APPLICATION_NAME = 'Pokemon Types'
 
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///pokemon.db',  connect_args={'check_same_thread':False})
+engine = create_engine('sqlite:///pokemon.db',
+                       connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
-DBSession = sessionmaker(bind = engine)
+DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
@@ -38,19 +43,20 @@ def create_user(login_session):
     """Add a new user to the database"""
 
     # Use the log-in data to set the properties for the new user
-    newUser = User(name = login_session['username'], email = login_session['email'])
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'])
     session.add(newUser)
     session.commit()
 
     # Return the created id after committing to the database
-    user = session.query(User).filter_by(email = login_session['email']).one()
+    user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
 
 def parse_evolution_after_list(pokemon_input):
     """Get the list of pokemon from the comma-separated input"""
 
-    separated_input = pokemon_input.replace(' ','').split(',')
+    separated_input = pokemon_input.replace(' ', '').split(',')
 
     pokemon_list = []
     if separated_input:
@@ -79,7 +85,7 @@ def parse_type_list(type_input):
             type = string.capwords(item.strip())
 
             id = get_type_id(type, session)
-            if (id != None):
+            if (id is not None):
                 type_list.append(id)
 
     return type_list
@@ -98,14 +104,14 @@ def parse_move_list(move_input):
             move = string.capwords(item.strip())
 
             id = get_move_id(move, session)
-            if (id != None):
+            if (id is not None):
                 move_list.append(id)
             else:
                 if move == '':
                     continue
 
                 # Move doesn't exist yet in the database. Add it.
-                new_move = Move(name = move)
+                new_move = Move(name=move)
                 session.add(new_move)
                 session.commit()
 
@@ -122,9 +128,9 @@ def check_category(category_name):
     # Check if already in the database
     id = get_category_id(category_name_cap, session)
 
-    if id == None:
+    if id is None:
         # Add to the database if not found
-        new_category = Category(name = category_name_cap)
+        new_category = Category(name=category_name_cap)
         session.add(new_category)
         session.commit()
 
@@ -149,11 +155,18 @@ def showHome():
 
     types = session.query(Type).order_by(asc(Type.name))
 
-    # Home page shown is different when a user is logged-in. Add option is available
+    # Home page shown is different when a user is logged-in.
+    # Add option is available
     if 'email' in login_session:
-        return render_template('home_signed_in.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
+        return render_template('home_signed_in.html',
+                               pokemon_list=pokemon_list,
+                               types=types,
+                               selected_type='All')
     else:
-        return render_template('home.html', pokemon_list = pokemon_list, types = types, selected_type = 'All')
+        return render_template('home.html',
+                               pokemon_list=pokemon_list,
+                               types=types,
+                               selected_type='All')
 
 
 @app.route('/pokemon/<string:type>')
@@ -163,7 +176,7 @@ def showType(type):
     all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
     all_types = session.query(Type).order_by(asc(Type.name))
 
-    # If type specified is "All", use showHome that displays all pokemon instead
+    # If type specified is "All", use showHome that displays all pokemon
     if type.lower() == 'all':
         return redirect(url_for('showHome'))
 
@@ -183,31 +196,38 @@ def showType(type):
 
     # Page shown is different when a user is logged-in. Add option is available
     if 'email' in login_session:
-        return render_template('home_signed_in.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
+        return render_template('home_signed_in.html',
+                               pokemon_list=pokemon_list,
+                               types=all_types,
+                               selected_type=string.capwords(type))
     else:
-        return render_template('home.html', pokemon_list = pokemon_list, types = all_types, selected_type = string.capwords(type))
+        return render_template('home.html',
+                               pokemon_list=pokemon_list,
+                               types=all_types,
+                               selected_type=string.capwords(type))
 
 
 @app.route('/pokemon/<int:id>')
 def showPokemon(id):
     """Show details page for the pokemon with the specified ID"""
 
-    pokemon = session.query(Pokemon).filter_by(id = id).one()
+    pokemon = session.query(Pokemon).filter_by(id=id).one()
 
-    # Map the pokemon entry from the database to a structure with displayable properties.
-    # Ex. Some entries are pointers to lists. Display comma-separated list of corresponding
-    # strings instead
+    # Map the pokemon entry from the database to a structure with displayable
+    # properties. Ex. Some entries are pointers to lists. Display
+    # comma-separated list of corresponding strings instead
     pokemon_view_model = Pokemon_VM(pokemon, session)
 
     # If the entry's creator is signed in, the page allows Edits and Deletes
     if 'email' in login_session:
         if login_session['user_id'] == pokemon.user_id:
-            return render_template('details_signed_in.html', pokemon = pokemon_view_model)
+            return render_template('details_signed_in.html',
+                                   pokemon=pokemon_view_model)
 
-    return render_template('details.html', pokemon = pokemon_view_model)
+    return render_template('details.html', pokemon=pokemon_view_model)
 
 
-@app.route('/pokemon/new', methods=['GET','POST'])
+@app.route('/pokemon/new', methods=['GET', 'POST'])
 def newPokemon():
     """Page for creating a new pokemon entry"""
 
@@ -217,7 +237,8 @@ def newPokemon():
 
     if request.method == 'POST':
         # Check if pokemon exists with the same ID
-        pokemon = session.query(Pokemon).filter_by(id = request.form['id']).first()
+        pokemon = session.query(Pokemon).filter_by(
+            id=request.form['id']).first()
         if pokemon:
             flash('A pokemon with the same ID already exists')
             return redirect(url_for('showHome'))
@@ -233,36 +254,47 @@ def newPokemon():
         else:
             is_legendary = False
 
-        newPokemon = Pokemon(id = request.form['id'],
-                            name = request.form['name'],
-                            description = request.form['description'],
-                            image = request.form['image'],
-                            height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int),
-                            weight = request.form['weight'],
-                            is_mythical = is_mythical,
-                            is_legendary = is_legendary,
-                            evolution_before = request.form['evolution_before'],
-                            evolution_after_list = parse_evolution_after_list(request.form['evolution_after']),
-                            type_list = parse_type_list(request.form['type']),
-                            weakness_list = parse_type_list(request.form['weakness']),
-                            move_list = parse_move_list(request.form['move']),
-                            category_id = check_category(request.form['category']),
-                            user_id = login_session['user_id'])
+        newPokemon = Pokemon(id=request.form['id'],
+                             name=request.form['name'],
+                             description=request.form['description'],
+                             image=request.form['image'],
+
+                             height=(request.form.get(
+                                     'height_ft', type=int) * 12) +
+                             request.form.get('height_inch', type=int),
+
+                             weight=request.form['weight'],
+
+                             is_mythical=is_mythical,
+                             is_legendary=is_legendary,
+
+                             evolution_before=request.form['evolution_before'],
+                             evolution_after_list=parse_evolution_after_list(
+                                 request.form['evolution_after']),
+
+                             type_list=parse_type_list(request.form['type']),
+                             weakness_list=parse_type_list(
+                                 request.form['weakness']),
+                             move_list=parse_move_list(request.form['move']),
+                             category_id=check_category(
+                                 request.form['category']),
+
+                             user_id=login_session['user_id'])
 
         # Add the new pokemon entry to the database
         session.add(newPokemon)
         session.commit()
 
-        # Indicate success in a message and show the added pokemon's Details Page
+        # Indicate success in a message and show the added pokemon's details
         flash('New pokemon added')
-        return redirect(url_for('showPokemon', id = newPokemon.id))
+        return redirect(url_for('showPokemon', id=newPokemon.id))
 
     else:
         # Show the form for adding new pokemon
         return render_template('new.html')
 
 
-@app.route('/pokemon/<int:id>/edit', methods=['GET','POST'])
+@app.route('/pokemon/<int:id>/edit', methods=['GET', 'POST'])
 def editPokemon(id):
     """Allows editing of pokemon details"""
 
@@ -270,11 +302,12 @@ def editPokemon(id):
     if 'email' not in login_session:
         return redirect(url_for('showLogin'))
 
-    pokemon = session.query(Pokemon).filter_by(id = id).one()
+    pokemon = session.query(Pokemon).filter_by(id=id).one()
 
     # Only the entry's creator may edit
     if pokemon.user_id != login_session['user_id']:
-        flash('You are not authorized to edit that pokemon entry. You may only edit a pokemon entry you added.')
+        flash('You are not authorized to edit that pokemon entry. '
+              'You may only edit a pokemon entry you added.')
         return redirect(url_for('showHome'))
 
     if request.method == 'POST':
@@ -283,7 +316,9 @@ def editPokemon(id):
         pokemon.description = request.form['description']
         pokemon.image = request.form['image']
 
-        pokemon.height = (request.form.get('height_ft', type=int) * 12) + request.form.get('height_inch', type=int)
+        pokemon.height = (request.form.get('height_ft', type=int) * 12)
+        + request.form.get('height_inch', type=int)
+
         pokemon.weight = request.form['weight']
 
         if request.form.get('mythical'):
@@ -297,7 +332,8 @@ def editPokemon(id):
             pokemon.is_legendary = False
 
         pokemon.evolution_before = request.form['evolution_before']
-        pokemon.evolution_after_list = parse_evolution_after_list(request.form['evolution_after'])
+        pokemon.evolution_after_list = parse_evolution_after_list(
+            request.form['evolution_after'])
         pokemon.type_list = parse_type_list(request.form['type'])
         pokemon.weakness_list = parse_type_list(request.form['weakness'])
         pokemon.move_list = parse_move_list(request.form['move'])
@@ -307,27 +343,29 @@ def editPokemon(id):
         session.add(pokemon)
         session.commit()
 
-        # Indicate success in a message and show the added pokemon's Details Page
+        # Indicate success in a message and show the added pokemon's details
         flash('Pokemon details edited')
-        return redirect(url_for('showPokemon', id = pokemon.id))
+        return redirect(url_for('showPokemon', id=pokemon.id))
 
     else:
         # Show the form for editing the pokemon details
-        # Show the displayable strings given the list of ids for some properties
-        evolutions_after = ', '.join(str(item) for item in pokemon.evolution_after_list)
+        # Show the displayable strings given the id list for some properties
+        evolutions_after = ', '.join(str(item)
+                                     for item in pokemon.evolution_after_list)
         types = ', '.join(get_type_name_list(pokemon.type_list, session))
-        weaknesses = ', '.join(get_type_name_list(pokemon.weakness_list, session))
+        weaknesses = ', '.join(get_type_name_list(
+            pokemon.weakness_list, session))
         moves = ', '.join(get_move_name_list(pokemon.move_list, session))
 
         return render_template('edit.html',
-                               pokemon = pokemon,
-                               evolutions_after = evolutions_after,
-                               types = types,
-                               weaknesses = weaknesses,
-                               moves = moves)
+                               pokemon=pokemon,
+                               evolutions_after=evolutions_after,
+                               types=types,
+                               weaknesses=weaknesses,
+                               moves=moves)
 
 
-@app.route('/pokemon/<int:id>/delete', methods=['GET','POST'])
+@app.route('/pokemon/<int:id>/delete', methods=['GET', 'POST'])
 def deletePokemon(id):
     """Delete the pokemon with the indicated id from the database"""
 
@@ -335,11 +373,12 @@ def deletePokemon(id):
     if 'email' not in login_session:
         return redirect(url_for('showLogin'))
 
-    pokemon = session.query(Pokemon).filter_by(id = id).one()
+    pokemon = session.query(Pokemon).filter_by(id=id).one()
 
     # Only the user that created the entry may delete
     if pokemon.user_id != login_session['user_id']:
-        flash('You are not authorized to delete that pokemon entry. You may only delete a pokemon entry you added.')
+        flash('You are not authorized to delete that pokemon entry. '
+              'You may only delete a pokemon entry you added.')
         return redirect(url_for('showHome'))
 
     if request.method == 'POST':
@@ -353,10 +392,10 @@ def deletePokemon(id):
 
     else:
         # Ask for confirmation in the Delete page
-        return render_template('delete.html', pokemon = pokemon)
+        return render_template('delete.html', pokemon=pokemon)
 
 
-@app.route('/pokemon/cleanup', methods=['GET','POST'])
+@app.route('/pokemon/cleanup', methods=['GET', 'POST'])
 def cleanup():
     """Moves and Categories may be added automatically when adding new
        pokemon. Cleanup removes the moves and categories previously added
@@ -387,7 +426,8 @@ def cleanup():
                 moves_used.append(move_id)
 
     # Get the categories (names) and moves (names) unused and can be deleted
-    categories_to_delete = list(set(all_category_names).difference(categories_used))
+    categories_to_delete = list(
+        set(all_category_names).difference(categories_used))
 
     moves_to_delete = list(set(all_move_ids).difference(moves_used))
     move_names_to_delete = []
@@ -400,12 +440,12 @@ def cleanup():
 
         # Delete unused categories
         for item in categories_to_delete:
-            category = session.query(Category).filter_by(name = item).first()
+            category = session.query(Category).filter_by(name=item).first()
             session.delete(category)
 
         # Delete unused moves
         for item in move_names_to_delete:
-            move = session.query(Move).filter_by(name = item).first()
+            move = session.query(Move).filter_by(name=item).first()
             session.delete(move)
 
         session.commit()
@@ -416,7 +456,9 @@ def cleanup():
 
     else:
         # Confirmation page before performing deletes
-        return render_template('cleanup.html', categories_to_delete= categories_to_delete, move_names_to_delete = move_names_to_delete)
+        return render_template('cleanup.html',
+                               categories_to_delete=categories_to_delete,
+                               move_names_to_delete=move_names_to_delete)
 
 
 #
@@ -427,7 +469,8 @@ def showLogin():
     """Prepare for logging-in"""
 
 	# Create anti-forgery state token
-    state = ''.join(random.choice(string.ascii_letters + string.digits) for x in xrange(32))
+    state = ''.join(random.choice(string.ascii_letters + string.digits)
+                    for x in xrange(32))
     login_session['state'] = state
 
     # Show the log-in page
@@ -490,7 +533,7 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
+        response = make_response(json.dumps('Current user already connected.'),
                                  200)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -515,7 +558,7 @@ def gconnect():
 
     # See if the user exists in the database or create a new entry
     userId = get_user_id(login_session['email'])
-    if userId == None:
+    if userId is None:
         userId = create_user(login_session)
     login_session['user_id'] = userId
 
@@ -538,11 +581,13 @@ def gdisconnect():
 
     # Check if user is connected
     if access_token is None:
-        response = make_response(json.dumps('Current user not connected.'), 401)
+        response = make_response(
+            json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    url = ('https://accounts.google.com/o/oauth2/revoke?token=%s'
+           % login_session['access_token'])
 
     h = httplib2.Http()
 
@@ -570,13 +615,17 @@ def showAllJson():
 
     pokemon_list = session.query(Pokemon).all()
 
-    # Use view model to display readable strings for columns containing pointers to list
-    return jsonify(Pokemon = [(Pokemon_VM(pokemon, session)).serialize for pokemon in pokemon_list])
+    # Use view model to display readable strings for columns containing
+    # pointers to list
+    return jsonify(Pokemon=[(Pokemon_VM(pokemon, session)).serialize
+                            for pokemon in pokemon_list])
 
 
 @app.route('/pokemon/<string:type>/json')
 def showTypeJson(type):
-    """Show JSON format of entries and details of pokemon with the specified type"""
+    """Show JSON format of entries and details of pokemon with the specified
+       type
+    """
 
     all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
     all_types = session.query(Type).order_by(asc(Type.name))
@@ -597,7 +646,8 @@ def showTypeJson(type):
                     pokemon_list.append(pokemon)
 
     # Return JSON format of the collection of pokemon
-    return jsonify(Pokemon = [(Pokemon_VM(pokemon, session)).serialize for pokemon in pokemon_list])
+    return jsonify(Pokemon=[(Pokemon_VM(pokemon, session)).serialize
+                            for pokemon in pokemon_list])
 
 
 @app.route('/pokemon/<int:id>/json')
@@ -605,16 +655,16 @@ def showPokemonJson(id):
     """Show JSON format of the details of the pokemon with the specified id"""
 
     # Get the pokemon
-    pokemon = session.query(Pokemon).filter_by(id = id).first()
+    pokemon = session.query(Pokemon).filter_by(id=id).first()
 
     if pokemon:
         # Show displayable string
         pokemon_view_model = Pokemon_VM(pokemon, session)
 
-        return jsonify(Pokemon = [pokemon_view_model.serialize])
+        return jsonify(Pokemon=[pokemon_view_model.serialize])
     else:
         # Return an empty collection
-        return jsonify(Pokemon = [])
+        return jsonify(Pokemon=[])
 
 
 @app.route('/pokemon/category/json')
@@ -622,7 +672,8 @@ def showCategoriesJson():
     """Show JSON format of all categories in the database"""
 
     categories = session.query(Category).all()
-    return jsonify(Categories = [category.serialize for category in categories])
+    return jsonify(Categories=[category.serialize
+                               for category in categories])
 
 
 @app.route('/pokemon/type/json')
@@ -630,7 +681,7 @@ def showTypesJson():
     """Show JSON format of all types in the database"""
 
     types = session.query(Type).all()
-    return jsonify(Types = [type.serialize for type in types])
+    return jsonify(Types=[type.serialize for type in types])
 
 
 @app.route('/pokemon/move/json')
@@ -638,7 +689,7 @@ def showMovesJson():
     """Show JSON format of all moves in the database"""
 
     moves = session.query(Move).all()
-    return jsonify(Moves = [move.serialize for move in moves])
+    return jsonify(Moves=[move.serialize for move in moves])
 
 #
 # MAIN FUNCTION
@@ -648,4 +699,4 @@ if __name__ == '__main__':
     app.debug = True
 
     # App runs in http://localhost:8000/
-    app.run(host = '0.0.0.0', port = 8000)
+    app.run(host='0.0.0.0', port=8000)

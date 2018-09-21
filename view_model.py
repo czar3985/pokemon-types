@@ -2,6 +2,7 @@
 
 from database_setup import Pokemon, Type, Move, Category
 
+
 #
 # POKEMON HEIGHT FUNCTIONS
 #
@@ -24,7 +25,7 @@ def get_pokemon_name(id, session):
     """Return the pokemon name given the pokemon ID"""
 
     if id:
-        pokemon = session.query(Pokemon).filter_by(id = id).first()
+        pokemon = session.query(Pokemon).filter_by(id=id).first()
 
         if pokemon:
             return pokemon.name
@@ -37,7 +38,7 @@ def get_pokemon_name(id, session):
 def get_pokemon_id(name, session):
     """Return the pokemon id given the pokemon name"""
 
-    pokemon = session.query(Pokemon).filter_by(name = name).first()
+    pokemon = session.query(Pokemon).filter_by(name=name).first()
 
     if pokemon:
         return pokemon.id
@@ -64,7 +65,7 @@ def get_pokemon_name_list(pokemon_id_list, session):
 def get_type_id(name, session):
     """Return the type id given the type name"""
 
-    type = session.query(Type).filter_by(name = name).first()
+    type = session.query(Type).filter_by(name=name).first()
 
     if type:
         return type.id
@@ -79,7 +80,7 @@ def get_type_name_list(type_id_list, session):
 
     if type_id_list:
         for id in type_id_list:
-            type = session.query(Type).filter_by(id = id).first()
+            type = session.query(Type).filter_by(id=id).first()
 
             if type:
                 type_list.append(type.name)
@@ -93,7 +94,7 @@ def get_type_name_list(type_id_list, session):
 def get_move_id(name, session):
     """Return the move id given the move name"""
 
-    move = session.query(Move).filter_by(name = name).first()
+    move = session.query(Move).filter_by(name=name).first()
 
     if move:
         return move.id
@@ -104,7 +105,7 @@ def get_move_id(name, session):
 def get_move_name(id, session):
     """Return the move name given the move id"""
 
-    move = session.query(Move).filter_by(id = id).first()
+    move = session.query(Move).filter_by(id=id).first()
 
     if move:
         return move.name
@@ -119,7 +120,7 @@ def get_move_name_list(move_id_list, session):
 
     if move_id_list:
         for id in move_id_list:
-            move = session.query(Move).filter_by(id = id).first()
+            move = session.query(Move).filter_by(id=id).first()
 
             if move:
                 move_list.append(move.name)
@@ -133,7 +134,7 @@ def get_move_name_list(move_id_list, session):
 def get_category_id(name, session):
     """Return the category id given the category name"""
 
-    category = session.query(Category).filter_by(name = name).first()
+    category = session.query(Category).filter_by(name=name).first()
 
     if category:
         return category.id
@@ -148,7 +149,7 @@ def get_user_id(email, session):
     """Return the user ID given the email"""
 
     try:
-        user = session.query(User).filter_by(email = email).one()
+        user = session.query(User).filter_by(email=email).one()
         return user.id
     except:
         return None
@@ -161,7 +162,9 @@ class Pokemon_VM():
     """Displays Pokemon details in readable format"""
 
     def __init__(self, pokemon, session):
-        """Map the columns from the Pokemon table to properties for display to the page"""
+        """Map the columns from the Pokemon table to properties for display to
+           the page
+        """
 
         self.id = pokemon.id
         self.name = pokemon.name
@@ -171,8 +174,12 @@ class Pokemon_VM():
         self.weight = pokemon.weight
         self.is_mythical = pokemon.is_mythical
         self.is_legendary = pokemon.is_legendary
-        self.evolution_before = get_pokemon_name(pokemon.evolution_before, session)
-        self.evolutions_after = get_pokemon_name_list(pokemon.evolution_after_list, session)
+        self.evolution_before = get_pokemon_name(
+            pokemon.evolution_before,
+            session)
+        self.evolutions_after = get_pokemon_name_list(
+            pokemon.evolution_after_list,
+            session)
         self.types = get_type_name_list(pokemon.type_list, session)
         self.weaknesses = get_type_name_list(pokemon.weakness_list, session)
         self.moves = get_move_name_list(pokemon.move_list, session)
