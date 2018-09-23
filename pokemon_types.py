@@ -294,10 +294,15 @@ def newPokemon():
         session.add(newPokemon)
         session.commit()
 
-        # Indicate success in a message and show the added pokemon's details
+        # Indicate success in a message
         flash('New pokemon added')
+
+        # Show the newly-added pokemon's details
         returnPokemon = session.query(Pokemon).filter_by(
-            pokedex_id=newPokemon.pokedex_id).one()
+            pokedex_id=newPokemon.pokedex_id).filter_by(
+                name=newPokemon.name).filter_by(
+                    description=newPokemon.description).filter_by(
+                        image=newPokemon.image).first()
         return redirect(url_for('showPokemon', id=returnPokemon.id))
 
     else:
