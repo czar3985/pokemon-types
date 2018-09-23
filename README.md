@@ -49,18 +49,18 @@ Home page: http://localhost:8000/pokemon/
 Page for each pokemon type: http://localhost:8000/pokemon/{type}
 - Ex. http://localhost:8000/pokemon/fire
 
-Details page for each pokemon: http://localhost:8000/pokemon/{pokedex_id}/
+Details page for each pokemon: http://localhost:8000/pokemon/{id}/
 - Ex. http://localhost:8000/pokemon/1
 
 Page for creating a new pokemon entry in the database: 
 http://localhost:8000/pokemon/new
 
 Page for editing a pokemon entry: 
-http://localhost:8000/pokemon/{pokedex_id}/edit
+http://localhost:8000/pokemon/{id}/edit
 - Ex. http://localhost:8000/pokemon/1/edit
 
 Page for deleting a pokemon entry:
-http://localhost:8000/pokemon/{pokedex_id}/delete
+http://localhost:8000/pokemon/{id}/delete
 - Ex. http://localhost:8000/pokemon/1/delete
 
 Log-in page: http://localhost:8000/pokemon/login
@@ -76,7 +76,7 @@ http://localhost:8000/pokemon/{type}/json
 - Ex. http://localhost:8000/pokemon/fire/json
 
 JSON API endpoint for pokemon with the specified id in the database:
-http://localhost:8000/pokemon/{pokedex_id}/json
+http://localhost:8000/pokemon/{id}/json
 - Ex. http://localhost:8000/pokemon/1/json
 
 JSON API endpoint for all types in the database:
@@ -110,6 +110,7 @@ Follow the steps below to create _client_secrets.json_
 Pokemon table properties
 ```python
     id = Column(Integer, nullable=False, primary_key=True)
+    pokedex_id = Column(Integer, nullable=False)
     name = Column(String(50), nullable=False)
     description = Column(String(250), nullable=False)
     image = Column(String(250), nullable=False)

@@ -81,6 +81,7 @@ class Pokemon(Base):
     __tablename__ = 'pokemon'
 
     id = Column(Integer, nullable=False, primary_key=True)
+    pokedex_id = Column(Integer, nullable=False)
     name = Column(String(50), nullable=False)
     description = Column(String(250), nullable=False)
     image = Column(String(250), nullable=False)

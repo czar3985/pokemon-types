@@ -196,7 +196,7 @@ bulbasur_move_id_list.append(get_move_id('Seed Bomb', session))
 bulbasaur_evolution_id_list = []
 bulbasaur_evolution_id_list.append(2)
 
-bulbasaur = Pokemon(id=1,
+bulbasaur = Pokemon(pokedex_id=1,
                     name='Bulbasaur',
                     description=('Bulbasaur can be seen napping in bright '
                                  'sunlight. There is a seed on its back. By '
@@ -242,7 +242,7 @@ charmander_move_id_list.append(get_move_id('Inferno', session))
 charmander_evolution_id_list = []
 charmander_evolution_id_list.append(5)
 
-charmander = Pokemon(id=4,
+charmander = Pokemon(pokedex_id=4,
                      name='Charmander',
                      description=('The flame that burns at the tip of its '
                                   'tail is an indication of its emotions. The '
@@ -290,7 +290,7 @@ squirtle_move_id_list.append(get_move_id('Hydro Pump', session))
 squirtle_evolution_id_list = []
 squirtle_evolution_id_list.append(8)
 
-squirtle = Pokemon(id=7,
+squirtle = Pokemon(pokedex_id=7,
                    name='Squirtle',
                    description=('Squirtle\'s shell is not merely used for '
                                 'protection. The shell\'s rounded shape and '

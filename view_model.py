@@ -21,29 +21,18 @@ def get_height_for_display(height_num):
 #
 # POKEMON NAME FUNCTIONS
 #
-def get_pokemon_name(id, session):
+def get_pokemon_name(pokedex_id, session):
     """Return the pokemon name given the pokemon ID"""
 
-    if id:
-        pokemon = session.query(Pokemon).filter_by(id=id).first()
+    if pokedex_id:
+        pokemon = session.query(Pokemon).filter_by(pokedex_id=pokedex_id).first()
 
         if pokemon:
             return pokemon.name
         else:
-            return 'Pokemon with ID# %s' % id
+            return 'Pokemon with Pokedex ID# %s' % pokedex_id
 
     return ''
-
-
-def get_pokemon_id(name, session):
-    """Return the pokemon id given the pokemon name"""
-
-    pokemon = session.query(Pokemon).filter_by(name=name).first()
-
-    if pokemon:
-        return pokemon.id
-    else:
-        return None
 
 
 def get_pokemon_name_list(pokemon_id_list, session):
@@ -52,8 +41,8 @@ def get_pokemon_name_list(pokemon_id_list, session):
     pokemon_list = []
 
     if pokemon_id_list:
-        for id in pokemon_id_list:
-            name = get_pokemon_name(id, session)
+        for pokedex_id in pokemon_id_list:
+            name = get_pokemon_name(pokedex_id, session)
             pokemon_list.append(name)
 
     return pokemon_list
@@ -167,6 +156,7 @@ class Pokemon_VM():
         """
 
         self.id = pokemon.id
+        self.pokedex_id = pokemon.pokedex_id
         self.name = pokemon.name
         self.description = pokemon.description
         self.image = pokemon.image
@@ -194,8 +184,9 @@ class Pokemon_VM():
         """For JSON API endpoint showing the pokemon entries in the database"""
 
         return {
+            'id': self.id,
             'name': self.name,
-            'pokedex_id': self.id,
+            'pokedex_id': self.pokedex_id,
             'description': self.description,
             'image': self.image,
             'height': self.height,

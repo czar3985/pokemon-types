@@ -163,7 +163,7 @@ def check_category(category_name):
 def showHome():
     """Show all pokemon and types in the Home Page"""
 
-    pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
+    pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.pokedex_id))
 
     # Indicate if there are no pokemon entries in the database
     if not pokemon_list:
@@ -189,7 +189,7 @@ def showHome():
 def showType(type):
     """Show all pokemon with the specified type"""
 
-    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
+    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.pokedex_id))
     all_types = session.query(Type).order_by(asc(Type.name))
 
     # If type specified is "All", use showHome that displays all pokemon
@@ -252,13 +252,6 @@ def newPokemon():
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
-        # Check if pokemon exists with the same ID
-        pokemon = session.query(Pokemon).filter_by(
-            id=request.form['id']).first()
-        if pokemon:
-            flash('A pokemon with the same ID already exists')
-            return redirect(url_for('showHome'))
-
         # Get the values inputted by the user in the form
         if request.form.get('mythical'):
             is_mythical = True
@@ -270,7 +263,7 @@ def newPokemon():
         else:
             is_legendary = False
 
-        newPokemon = Pokemon(id=request.form['id'],
+        newPokemon = Pokemon(pokedex_id=request.form['pokedex_id'],
                              name=request.form['name'],
                              description=request.form['description'],
                              image=request.form['image'],
@@ -303,7 +296,9 @@ def newPokemon():
 
         # Indicate success in a message and show the added pokemon's details
         flash('New pokemon added')
-        return redirect(url_for('showPokemon', id=newPokemon.id))
+        returnPokemon = session.query(Pokemon).filter_by(
+            pokedex_id=newPokemon.pokedex_id).one()
+        return redirect(url_for('showPokemon', id=returnPokemon.id))
 
     else:
         # Show the form for adding new pokemon
@@ -328,6 +323,7 @@ def editPokemon(id):
 
     if request.method == 'POST':
         # Get the edited pokemon details from the form
+        pokemon.pokedex_id = request.form['pokedex_id']
         pokemon.name = request.form['name']
         pokemon.description = request.form['description']
         pokemon.image = request.form['image']
@@ -361,7 +357,7 @@ def editPokemon(id):
 
         # Indicate success in a message and show the added pokemon's details
         flash('Pokemon details edited')
-        return redirect(url_for('showPokemon', id=pokemon.id))
+        return redirect(url_for('showPokemon', id=id))
 
     else:
         # Show the form for editing the pokemon details
@@ -643,7 +639,7 @@ def showTypeJson(type):
        type
     """
 
-    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.id))
+    all_pokemon_list = session.query(Pokemon).order_by(asc(Pokemon.pokedex_id))
     all_types = session.query(Type).order_by(asc(Type.name))
     pokemon_list = []
 
